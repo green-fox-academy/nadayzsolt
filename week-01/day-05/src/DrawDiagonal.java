@@ -11,14 +11,21 @@ public class DrawDiagonal {
     userInput = scanner.nextLine();
     int inputInt = Integer.parseInt(userInput);
 
-    for (int i = 1; i < inputInt + 1; i++) {
-      if (i % 5 == 0 || i % 5 == 1) {
-        System.out.println("%%%%%");
-      } else if (i % 5 == 2) {
-        System.out.println("%%  %");
-      } else if (i % 5 == 3) {
-        System.out.println("% % %");
-      } else if (i % 5 == 4) System.out.println("%  %%");
+    for (int i = 0; i < inputInt; i++) {
+      System.out.println();
+
     }
+
+
+
+ //  for (int i = 1; i < inputInt + 1; i++) {
+ //    if (i % 5 == 0 || i % 5 == 1) {
+ //      System.out.println("%%%%%");
+ //    } else if (i % 5 == 2) {
+ //      System.out.println("%%  %");
+ //    } else if (i % 5 == 3) {
+ //      System.out.println("% % %");
+ //    } else if (i % 5 == 4) System.out.println("%  %%");
+
   }
 }
