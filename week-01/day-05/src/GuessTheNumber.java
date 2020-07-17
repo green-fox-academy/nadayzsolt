@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+// Write a program that stores a number, and the user has to figure it out.
+// The user can input guesses, after each guess the program would tell one
+// of the following:
+
 public class GuessTheNumber {
   public static void main(String[] args) {
     int myInteger = 5787;

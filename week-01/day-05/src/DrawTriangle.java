@@ -1,9 +1,5 @@
 import java.util.Scanner;
 
-// Write a program that stores a number, and the user has to figure it out.
-// The user can input guesses, after each guess the program would tell one
-// of the following:
-
 public class DrawTriangle {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
