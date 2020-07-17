@@ -20,14 +20,12 @@ public class PartyIndicator {
       System.out.println("The party is excellent!");
     } else if (girlsInt + boysInt >= 20 && girlsInt != boysInt) {
       System.out.println("Quite cool party!");
+    } else if (girlsInt == 0 && boysInt == 0) {
+      System.out.println("No party :(");
     } else if (girlsInt + boysInt < 20) {
       System.out.println("Average party...");
     } else if (girlsInt == 0) {
       System.out.println("Sausage party");
-    } else if (girlsInt == 0 && boysInt == 0) {
-      System.out.println("No party :(");
-    } else {
-      System.out.println("Whatever");
     }
 
 
