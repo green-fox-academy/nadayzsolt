@@ -14,10 +14,10 @@ public class DoubleItems {
         numList[i] = numList[i] * 2;
       }
       System.out.println(Arrays.toString(numList));
-      System.out.println("\n");
+      System.out.println("");
     }
 
-// 2. the worst solution:
+// 2. the worst solution (ever):
     {
       int[] numList = {3, 4, 5, 6, 7};
       int numList2[] = new int[numList.length];

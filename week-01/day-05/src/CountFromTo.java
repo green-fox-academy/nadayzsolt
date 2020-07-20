@@ -12,6 +12,13 @@ public class CountFromTo {
     System.out.print("Write here the second number: " + userInput2);
     userInput2 = scanner.nextLine();
 
+//    Here we are, finally, here is the solution to scan the numbers:
+//    Scanner scanner = new Scanner(System.in);
+//    int userInput2 = 0;
+//    System.out.print("Write here the second number: ");
+//    userInput2 = scanner.nextInt();
+//    System.out.println(userInput2);
+
 
     int myInteger1 = Integer.parseInt(userInput1);
     int myInteger2 = Integer.parseInt(userInput2);
