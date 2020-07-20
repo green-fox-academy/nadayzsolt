@@ -24,7 +24,7 @@ public class DiagonalMatrix {
       System.out.println("\n");
 
 
-// 2. Solution with the the enchanced/dinamic for (foreach):
+// 2. Solution with the the enhanced/dynamic for (foreach):
     for (int[] rowPlaceholder : multiArray) {
       for (int columnPlaceholder : rowPlaceholder) {
         System.out.print(columnPlaceholder + " ");
