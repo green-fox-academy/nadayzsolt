@@ -23,16 +23,16 @@ public class MapIntroduction2 {
       System.out.println(it2.next() + ")");
     }
     libraryCatalog.remove("978-1-60309-444-3");
-    System.out.println(libraryCatalog + "after del - 444-3");
+    System.out.println("\n" + libraryCatalog + " - after del. - 444-3");
     libraryCatalog.remove(0, "The Lab");
-    System.out.println(libraryCatalog + "after del - The Lab");
+    System.out.println("\n" + libraryCatalog + " - after del. - The Lab");
     libraryCatalog.put("978-1-60309-450-4", "They Called Us Enemy");
     libraryCatalog.put("978-1-60309-453-5", "Why Did We Trust Him?");
-    System.out.println(libraryCatalog + "after adding two books");
+    System.out.println(libraryCatalog + " - after adding two books");
     if (libraryCatalog.get("478-0-61159-424-8") != null) {
-      System.out.println("yes we have it");
+      System.out.println("\n"+"Yes we have the book to ...-424-8");
     } else {
-      System.out.println("no, we do not have such value (with:...-424-8)");
+      System.out.println("\n"+"no, we do not have such value (with:...-424-8)");
     }
     System.out.print(libraryCatalog.get("978-1-60309-453-5"));
     System.out.println(" - is the value to ..-453-5");
