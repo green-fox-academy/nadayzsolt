@@ -1,3 +1,5 @@
+import java.util.Formatter;
+
 public class TodoPrint {
   public static void main(String[] args) {
 
@@ -18,7 +20,8 @@ public class TodoPrint {
     String games = " - Download games";
     String newLine = "\n";
     String diablo = " - Diablo";
-    todoText = my.concat(newLine).concat(todoText).concat(games).concat(newLine).concat(diablo);
+    String myIntendedIndentation = "    ";
+    todoText = my.concat(newLine).concat(todoText).concat(games).concat(newLine).concat(myIntendedIndentation).concat(diablo);
 
     System.out.println(todoText);
   }
