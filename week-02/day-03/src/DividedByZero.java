@@ -15,7 +15,7 @@ public class DividedByZero {
 
 
   }
-//  A void azért van, mert nincs a függvénynek kimeneti értéke, lehetne pl. String, vagy Integer is
+//  A void azért van, mert nincs a függvénynek visszatérési értéke, lehetne pl. String, vagy Integer is
 //  Ami még fontos, hogy a printDivision a neve függvénynek és egyedül ez az amit felismer a main
 //  Amiatt teljesen mindegy, hogy mi függvényen belüli változó neve, mivel annak nem kell megegyeznie
 //  a mainben lévő, első ránézésre ugyanazt jelölő változóval.
@@ -42,7 +42,7 @@ public class DividedByZero {
     try {
       int result = 10 / divisor2;
       System.out.println(result);
-    } catch (Exception e){
+    } catch (Exception e) {
       System.out.println("vmi nem ok");
     } finally {
       System.out.println("nagyon megy :)))))");
