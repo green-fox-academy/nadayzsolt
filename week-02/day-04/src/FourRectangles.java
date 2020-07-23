@@ -1,6 +1,7 @@
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Random;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -9,35 +10,35 @@ public class FourRectangles {
     public static void mainDraw(Graphics graphics) {
         // draw four different size and color rectangles.
         // avoid code duplication.
+        int x = 10;
+        int y = 10;
+        int rectAmount = 4;
+        for (int i = 1; i < rectAmount+1; i++) {
+            x = i*20 + x;
+            y = i*20 + y;
+            WIDTH = WIDTH - 10 * i;
+            HEIGHT = HEIGHT - 10 * i;
+            drawRectangles(graphics, x, y);
+        }
 
-        int[] xCoordinates = {100, 143, 300};
-        int[] yCoordinates = {300, 280, 100};
-        graphics.setColor(Color.BLACK);
-        graphics.drawPolygon(xCoordinates, yCoordinates, 3);
-
-        int[] xCoordinates2 = {100, 280, 145};
-        int[] yCoordinates2 = {100, 143, 300};
-        graphics.setColor(Color.BLUE);
-        graphics.drawPolygon(xCoordinates2, yCoordinates2, 3);
-
-
-        int[] xCoordinates3 = {12, 28, 145};
-        int[] yCoordinates3 = {210, 13, 167};
-        graphics.setColor(Color.GREEN);
-        graphics.drawPolygon(xCoordinates3, yCoordinates3, 3);
-
-        int[] xCoordinates4 = {123, 128, 15};
-        int[] yCoordinates4 = {10, 213, 310};
-        graphics.setColor(Color.MAGENTA);
-        graphics.drawPolygon(xCoordinates3, yCoordinates3, 3);
-//        graphics.setColor(Color.GREEN);
-//        graphics.setColor(Color.MAGENTA);
 
     }
+
+    public static void drawRectangles(Graphics graphics, int x, int y) {
+        graphics.setColor(getRandomColor());
+        graphics.drawRect(x, y, WIDTH, HEIGHT);
+    }
+
 
     // Don't touch the code below
     static int WIDTH = 320;
     static int HEIGHT = 320;
+
+    public static Color getRandomColor() {
+        Random random = new Random();
+        int limit = 256;
+        return new Color(random.nextInt(limit), random.nextInt(limit), random.nextInt(limit));
+    }
 
     public static void main(String[] args) {
         JFrame jFrame = new JFrame("Drawing");
