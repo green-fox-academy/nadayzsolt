@@ -10,9 +10,14 @@ public class HorizontalLines {
         // The x and y coordinates of the line's starting point and the graphics
         // and draws a 50 long horizontal line from that point.
         // Draw at least 3 lines with that function using a loop.
-        int x1 = 234;
-        int y1 = 87;
-        theVeryFunction(graphics, x1, y1);
+        int x1 = 10;
+        int y1 = 10;
+        int lineAmount = 3;
+        for (int i = 0; i < lineAmount; i++) {
+            x1 = x1 + i * 10;
+            y1 = y1 + i * 10;
+            theVeryFunction(graphics, x1, y1);
+        }
     }
 
     public static void theVeryFunction(Graphics graphics, int x1, int y1) {
