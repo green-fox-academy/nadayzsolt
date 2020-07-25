@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class LinePlayQuarters {
+public class LinePlay {
   public static void mainDraw(Graphics graphics) {
     // Create a function that draws a single line and takes 3 parameters:
     // The x and y coordinates of the line's starting point and the graphics
