@@ -21,7 +21,7 @@ public class DiagonalMatrix {
 
       }
     }
-      System.out.println("\n");
+    System.out.println("\n");
 
 
 // 2. Solution with the the enhanced/dynamic for (foreach):

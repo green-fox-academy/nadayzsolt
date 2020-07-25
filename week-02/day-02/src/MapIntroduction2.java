@@ -29,6 +29,7 @@ public class MapIntroduction2 {
     libraryCatalog.put("978-1-60309-450-4", "They Called Us Enemy");
     libraryCatalog.put("978-1-60309-453-5", "Why Did We Trust Him?");
     System.out.println(libraryCatalog + " - after adding two books");
+
     if (libraryCatalog.get("478-0-61159-424-8") != null) {
       System.out.println("\n"+"Yes we have the book to ...-424-8");
     } else {
