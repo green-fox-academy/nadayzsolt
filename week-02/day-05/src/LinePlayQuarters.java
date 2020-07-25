@@ -15,26 +15,39 @@ public class LinePlayQuarters {
 //Canvas divided by 16. To divide by 4 / 64, you have to change divisor (now it's: 4) to 2 / 8.
     int divisor = 4;
     int lineAmount = 15;
-    int x1 = (WIDTH /divisor / lineAmount) / 5; // kb. 5
-    int y1 = (HEIGHT /divisor / lineAmount) / 5; //5
-    int x2 = WIDTH / divisor - ((WIDTH / 4 / lineAmount) / 5); // 315
-    int y2 = (HEIGHT / divisor / lineAmount) / 5; // 5
+    int x1 = 0; // kb. 5
+    int y1 = 0; //5
+    int x2 = WIDTH/divisor; // 315
+    int y2 = 0; // 5
 
-    for (int i = 0; i < lineAmount - 1; i++) {
+    for (int i = 0; i < lineAmount; i++) {
       x1 = x1 + WIDTH / divisor / lineAmount;
       y2 = y2 + HEIGHT / divisor / lineAmount;
-      linePlayForm(graphics, x1, x2, y1, y2);
+      linePlayForm(graphics, divisor, x1, x2, y1, y2);
     }
   }
 
-  public static void linePlayForm(Graphics graphics, int x1, int x2, int y1, int y2) {
+  public static void linePlayForm(Graphics graphics, int divisor, int x1, int x2, int y1, int y2) {
 
     graphics.setColor(Color.MAGENTA);
     graphics.drawLine(x1, y1, x2, y2);
-//    and the green is just the mirror of it:
-//    only have to move the coordinates to each other's places:
     graphics.setColor(Color.GREEN);
     graphics.drawLine(y1, x1, y2, x2);
+
+    graphics.setColor(Color.MAGENTA);
+    graphics.drawLine(x1+WIDTH /divisor, y1, x2+WIDTH /divisor, y2);
+    graphics.setColor(Color.GREEN);
+    graphics.drawLine(y1+WIDTH /divisor, x1, y2+WIDTH /divisor, x2);
+//left bottom
+    graphics.setColor(Color.MAGENTA);
+    graphics.drawLine(x1, y1+HEIGHT/divisor, x2, y2+HEIGHT/divisor);
+    graphics.setColor(Color.GREEN);
+    graphics.drawLine(y1, x1+HEIGHT/divisor, y2, x2+HEIGHT/divisor);
+//right bottom
+    graphics.setColor(Color.MAGENTA);
+    graphics.drawLine(x1+WIDTH /divisor, y1+HEIGHT/divisor, x2+WIDTH /divisor, y2+HEIGHT/divisor);
+    graphics.setColor(Color.GREEN);
+    graphics.drawLine(y1+WIDTH /divisor, x1+HEIGHT/divisor, y2+WIDTH /divisor, x2+HEIGHT/divisor);
   }
 
   // Don't touch the code below

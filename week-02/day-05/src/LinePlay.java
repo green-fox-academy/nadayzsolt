@@ -12,7 +12,7 @@ public class LinePlay {
     // and draws a 50 long horizontal line from that point.
     // Draw at least 3 lines with that function using a loop.
 
-    int lineAmount = 15;
+    int lineAmount = 35;
     int x1 = (WIDTH / lineAmount) / 5; // kb. 5
     int y1 = (HEIGHT / lineAmount) / 5; //5
     int x2 = WIDTH - ((WIDTH / lineAmount) / 5); // 315
