@@ -1,4 +1,4 @@
-package Animal;
+package animal;
 
 //        - Create an `Animal` class
 //  - Every animal has a `hunger` value, which is a whole number

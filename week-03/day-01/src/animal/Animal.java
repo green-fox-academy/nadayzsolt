@@ -1,6 +1,4 @@
-package Animal;
-
-import java.text.BreakIterator;
+package animal;
 
 public class Animal {
     //  lehet így is, csak ne így:

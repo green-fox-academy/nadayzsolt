@@ -1,4 +1,4 @@
-package BlogPost;
+package blogPost;
 
 public class Main {
     public static void main(String[] args) {
