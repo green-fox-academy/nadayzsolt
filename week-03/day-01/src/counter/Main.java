@@ -6,15 +6,15 @@ package counter;
 //        creating OK
 //        - we can `add(number)` to this counter another whole number OK
 //        - or we can `add()` without parameters just increasing the counter's value by
-//        one OR
-//        - and we can `get()` the current value
-//        - also we can `reset()` the value to the initial value
-//        - Check if everything is working fine with the proper test
-//        - Download `CounterTest.java` and place it next to your solution
+//        one OR/OR
+//        - and we can `get()` the current value OK
+//        - also we can `reset()` the value to the initial value OK
+//        - Check if everything is working fine with the proper test ????
+//        - Download `CounterTest.java` and place it next to your solution OK
 //        - If something's red in it, ALT+Enter Add JUnit5 to classpath (**5 aka JUnit
-//        FIVE not 4 or 3**)
+//        FIVE not 4 or 3**) OK
 //        - Then run the tests with the green play button before the lines (run all of
-//        them before the classname)
+//        them before the classname) OK?
 
 public class Main {
     public static void main(String[] args) {

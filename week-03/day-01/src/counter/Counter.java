@@ -2,11 +2,15 @@ package counter;
 
 public class Counter {
     private int defaultValue;
-    private int addNumber;
     private int value;
 
-    public Counter() {
+    public Counter(){
         this.defaultValue = 0;
+        this.value = 0;
+    }
+
+    public Counter(int defaultValue){
+        this.defaultValue = defaultValue;
         this.value = defaultValue;
     }
 
@@ -15,9 +19,15 @@ public class Counter {
 //        ++value; // így pedig egyet ad hozzá bármi áll is a (zárójelben)
     }
 
-    public void get() {
-        System.out.println("The current value is: " +value);
+    public void add() {
+        ++value;
     }
+
+    public int get() {
+        System.out.println("The current value is: " + value);
+        return value;
+    }
+
     public void reset() {
         value = defaultValue;
         System.out.println("Counter has been reset to: " + value);
