@@ -1,5 +1,7 @@
 package diceSet;
 
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,15 +40,27 @@ public class DiceSet {
         // Check the current rolled numbers with getCurrent()
         // You can reroll with reroll()
         // Your task is to roll the dice until all of the dice are 6
+        DiceSet diceSet1 = new DiceSet();
+        diceSet1.roll();
+        diceSet1.whateverDice(diceSet1.getCurrent());
+        System.out.println(diceSet1.getCurrent());
 
-        DiceSet diceSet = new DiceSet();
-        System.out.println(diceSet.getCurrent());
-        System.out.println(diceSet.roll());
-        System.out.println(diceSet.getCurrent());
-        System.out.println(diceSet.getCurrent(5));
-        diceSet.reroll();
-        System.out.println(diceSet.getCurrent());
-        diceSet.reroll(4);
-        System.out.println(diceSet.getCurrent());
+
     }
+
+    public void whateverDice(List<Integer> dice) {
+        for (int i = 0; i < dice.size(); i++) {
+            if (dice.get(i) == 6) {
+                continue;
+            } else {
+                while (dice.get(i) != 6) {
+                    reroll(i);
+                }
+            }
+
+        }
+
+
+    }
+
 }
