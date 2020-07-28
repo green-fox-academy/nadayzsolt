@@ -11,11 +11,12 @@ public class Counter {
     }
 
     public void add(int number) {
-        value = value + number;
+        value = value + number; // lehet így és akkor a zárójelben lévő számot fogja hozzáadni, ha csak nem i-t írunk bele mert akkor növekvő számok adódnak hozzá
+//        ++value; // így pedig egyet ad hozzá bármi áll is a (zárójelben)
     }
 
     public void get() {
-        System.out.println(value);
+        System.out.println("The current value is: " +value);
     }
     public void reset() {
         value = defaultValue;

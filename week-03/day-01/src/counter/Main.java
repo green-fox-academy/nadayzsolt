@@ -3,10 +3,10 @@ package counter;
 //- Create `Counter` class
 //  - which has an integer field value
 //          - when creating it should have a default value 0 or we can specify it when
-//        creating
-//        - we can `add(number)` to this counter another whole number
+//        creating OK
+//        - we can `add(number)` to this counter another whole number OK
 //        - or we can `add()` without parameters just increasing the counter's value by
-//        one
+//        one OR
 //        - and we can `get()` the current value
 //        - also we can `reset()` the value to the initial value
 //        - Check if everything is working fine with the proper test
@@ -18,11 +18,12 @@ package counter;
 
 public class Main {
     public static void main(String[] args) {
+        Counter counter1 = new Counter();
+
         for (int i = 0; i < 10; i++) {
-            Counter counter1 = new Counter() {
-
-
-            }
+            counter1.add(5);
         }
+        counter1.get();
+        counter1.reset();
     }
 }
