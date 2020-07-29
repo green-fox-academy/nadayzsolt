@@ -1,4 +1,6 @@
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
+
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,42 +14,34 @@ public class EnvelopeStar {
     // and draws a 50 long horizontal line from that point.
     // Draw at least 3 lines with that function using a loop.
 
-//Canvas divided by 4 after LinePlay tast & changed positioning.
-    int divisor = 2;
+//.
+    int divisor = 4;
     int lineAmount = 16;
     int x1 = 0;
     int y1 = 0;
     int x2 = WIDTH / divisor;
     int y2 = 0;
-    for (int j = 0; j < divisor; j++) {
-
-    }
-    for (int i = 0; i < lineAmount-1; i++) {
-      x1 = x1 + WIDTH / divisor / lineAmount;
-      y2 = y2 + HEIGHT / divisor / lineAmount;
-      linePlayForm(graphics, x1, x2, y1, y2, divisor);
-    }
+    int heightFration = HEIGHT / divisor;
+    int widthFration = WIDTH / divisor;
+      for (int i = 0; i < lineAmount - 1; i++) {
+        x1 = x1 + WIDTH / divisor / lineAmount;
+        y2 = y2 + HEIGHT / divisor / lineAmount;
+        linePlayForm(graphics, x1, x2, y1, y2, divisor, heightFration, widthFration);
+      }
   }
 
-  public static void linePlayForm(Graphics graphics, int x1, int x2, int y1, int y2, int divisor) {
+  public static void linePlayForm(Graphics graphics, int x1, int x2, int y1, int y2, int divisor, int heightFration, int widthFration) {
 
-//    Upper-right quarter
     graphics.setColor(Color.GREEN);
-    graphics.drawLine(x1, y1 + HEIGHT/divisor, x2, y2+ HEIGHT/divisor);
-//    Lower-left quarter
-//    graphics.setColor(Color.BLACK);
-    graphics.drawLine(y1 + WIDTH/divisor, x1, y2 + WIDTH/divisor, x2);
 
-
-
-
-    //    Upper-left quarter * innen folyt köv...
-//    graphics.setColor(Color.GREEN);
-    graphics.drawLine(x1, HEIGHT/divisor, HEIGHT / divisor , HEIGHT / divisor - y2);
+// Top-right quarter
+    graphics.drawLine(x1, y1 + heightFration, x2, y2 + heightFration);
+// left bottom
+    graphics.drawLine(y1 + widthFration, x1, y2 + widthFration, x2);
+// left top
+    graphics.drawLine(x1, heightFration, heightFration, heightFration - y2);
 // right bottom
-//    graphics.setColor(Color.RED);
-    graphics.drawLine(y1+ WIDTH / divisor, y2 + HEIGHT/divisor, 2* WIDTH / divisor - x1 , HEIGHT/divisor);
-
+    graphics.drawLine(y1 + widthFration, y2 + heightFration, 2 * widthFration - x1, heightFration);
   }
 
   // Don't touch the code below
