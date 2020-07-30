@@ -16,6 +16,10 @@ public class DiceSet {
     return dice;
   }
 
+  public static void whateverX(){
+
+  }
+
   public List<Integer> getCurrent() {
     return dice;
   }
@@ -43,11 +47,11 @@ public class DiceSet {
 
     DiceSet diceSet1 = new DiceSet();
     diceSet1.roll();
-    diceSet1.whateverDice(diceSet1.getCurrent());
+    diceSet1.whateverDice();
     System.out.println(diceSet1.getCurrent());
   }
 
-  public void whateverDice(List<Integer> dice) {
+  public void whateverDice() {
     for (int i = 0; i < dice.size(); i++) {
       if (dice.get(i) == 6) {
         continue;

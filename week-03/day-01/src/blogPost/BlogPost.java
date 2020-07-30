@@ -13,6 +13,7 @@ public class BlogPost {
         this.publicationDate = publicationDate;
     }
 
+//    ezeket máskor törölni
     public String getAuthorName() {
         return authorName;
     }
