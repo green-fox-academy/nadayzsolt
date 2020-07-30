@@ -18,6 +18,7 @@ public class Triangles {
 
         int side = x2 - x1;
         graphics.drawLine(x1, y1, x2, y2);
+
         graphics.drawLine(x1 + ((x2 - x1) / 2), (int) (y1 - (side * (Math.sqrt(3) / 2))), x1, y1);
         graphics.drawLine(x1 + ((x2 - x1) / 2), (int) (y1 - (side * (Math.sqrt(3) / 2))), x2, y2);
 //        drawTriangle(graphics, x);
