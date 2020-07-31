@@ -21,12 +21,6 @@ public class SumTest {
     sum = new Sum();
   }
 
-// Ha ezt beírom, akkor ignorálja a teszteket, szóval nem használom:
-//  @BeforeEach
-//  public static void setupEach() {
-//    sum = new Sum();
-//  }
-
   @Test
   void getSum() {
     assertEquals(14, sum.addX(testList));
