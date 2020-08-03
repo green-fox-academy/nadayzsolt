@@ -10,6 +10,9 @@ package sumDigit;
 //      the number by 10 and find a way to get the the whole number portion of that number.
 
 public class SumDigit {
+
+
+
   public static void main(String[] args) {
     System.out.println(theSumMaker(2456));
   }

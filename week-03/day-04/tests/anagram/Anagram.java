@@ -25,6 +25,7 @@ public class Anagram {
     String bSplitStr[] = bStr.split("");
     List<String> aList = new ArrayList<String>();
     List<String> bList = new ArrayList<String>();
+
     aList = Arrays.asList(aSplitStr);
     bList = Arrays.asList(bSplitStr);
     boolean aContainsB = aList.containsAll(bList);
