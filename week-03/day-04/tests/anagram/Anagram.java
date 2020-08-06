@@ -21,8 +21,8 @@ public class Anagram {
   public static void anagramCompare(String aStr, String bStr) {
     String aLowerStr = aStr.toLowerCase();
     String bLowerStr = bStr.toLowerCase();
-    String aSplitStr[] = aStr.split("");
-    String bSplitStr[] = bStr.split("");
+    String aSplitStr[] = aLowerStr.split("");
+    String bSplitStr[] = bLowerStr.split("");
     List<String> aList = new ArrayList<String>();
     List<String> bList = new ArrayList<String>();
 
