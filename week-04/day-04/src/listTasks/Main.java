@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-    if (args[0]equals("-l")) {
+    if (args[0].equals("-l")) {
       Path filePath = Paths.get("/home/zsolt/IdeaProjects/nadayzsolt/week-04/day-04/src/listTasks/file.txt");
       List<String> lines = null;
       try {
