@@ -14,7 +14,7 @@ public class EmptyList {
 
     } catch (Exception e) {
       e.printStackTrace();
-      System.out.println("brühbrüh");
+      System.out.println("brühbrühü");
     }
     if (args[0].equals("-l") && lines != null) {
       System.out.println("No todos for today! :)");
