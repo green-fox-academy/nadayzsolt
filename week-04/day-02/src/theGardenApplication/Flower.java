@@ -1,9 +1,9 @@
 package theGardenApplication;
 
-public class Flower {
-  private double waterLevel = 0;
-  private double waterLimit = 5;
-  private double absorption = 3/4;
+public class Flower extends Plant {
+  double waterLevel = 0.0;
+  double waterLimit = 5.0;
+  private double absorption = 0.75;
   private String color;
 
   public Flower(String color) {
