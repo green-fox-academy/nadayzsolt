@@ -24,10 +24,7 @@ public class Garden {
     double wateringPortion = wateringAmount / numOfPlantsToBeWatered;
     for (Plant plant : plants) {
       if (plant.getWaterLevel() < plant.getWaterLimit()) {
-        if (plant.getWaterLimit() >=
-            plant.getWaterLevel() + wateringPortion * plant.getAbsorption()) {
-          plant.setWaterLevel(plant.getWaterLevel() + wateringPortion * plant.getAbsorption());
-        }
+        plant.setWaterLevel(plant.getWaterLevel() + wateringPortion * plant.getAbsorption());
       }
     }
     System.out.println(

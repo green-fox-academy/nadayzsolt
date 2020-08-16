@@ -20,7 +20,7 @@ public class TheGardenApplication {
     garden.addPlant(orangeTree);
 
     garden.statusReport();
-    garden.watering(40);
+    garden.watering(500);
     garden.statusReport();
 //    garden.watering(70);
 //    garden.statusReport();

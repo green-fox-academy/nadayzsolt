@@ -17,7 +17,8 @@ public class MapIntroduction1 {
     System.out.println(myLittleMap.keySet());
     System.out.println(myLittleMap.values());
     myLittleMap.put(68, 'D');
-    System.out.println(myLittleMap);
+
+    System.out.println("\n" + myLittleMap);
     System.out.println(myLittleMap.size());
     System.out.println(myLittleMap.get(99));
     System.out.println(myLittleMap.get(97));

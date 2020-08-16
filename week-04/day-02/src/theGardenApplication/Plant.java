@@ -1,16 +1,14 @@
 package theGardenApplication;
 
-public class Tree extends Plant {
-  private double waterLevel = 0.0;
-  private double waterLimit = 10.0;
-  private double absorption = 0.4;
+public abstract class Plant {
+  private double waterLevel;
+  private double waterLimit;
+  private double absorption;
   private String color;
 
-  public Tree(String color) {
-    this.color = color;
-  }
+  public Plant(String color) { this.color = color; }
 
-  protected Tree() {
+  protected Plant() {
   }
 
   public double getWaterLevel() {
