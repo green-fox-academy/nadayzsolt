@@ -2,7 +2,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class WriteSingleLine {
@@ -12,20 +11,23 @@ public class WriteSingleLine {
     // The file should be named "my-file.txt"
     // In case the program is unable to write the file,
     // It should print the following error message: "Unable to write file: my-file.txt"
-    List<String> content = new ArrayList();
+    List<String> content = new ArrayList<>();
     content.add("Zsolt");
-    valami(content);
+    content.add("Béla");
+    content.add("Bélus");
+    content.add("Bélás");
+    writeFile(content);
   }
 
-  public static void valami(List content) {
+  public static void writeFile(List<String> content) {
     try {
-      Path filePath = Paths.get("src/my-file.txt");
+      Path filePath = Paths.get("week-02/day-03/assets/my-file.txt");
       Files.write(filePath, content);
+      System.out.println("File successfully overwritten.");
     } catch (Exception e) {
 //      e.printStackTrace();
 //      ez az amivel ki lehet iratni vele a kivételeket, és jobban múködik mint a rendszeranalitika
       System.out.println("Unable to write file: my-file.txt");
     }
-
   }
 }
