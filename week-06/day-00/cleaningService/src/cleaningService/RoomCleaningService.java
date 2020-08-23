@@ -2,12 +2,23 @@ package cleaningService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RoomCleaningService {
   List<Street> streets = new ArrayList<>();
   Street street;
   House house;
   Room room;
+
+  // here we come w/ the lambda&stream things however at the moment I don't get it:
+//  public void writeMeNiceThings(){
+//    List<Street> openStreets = new ArrayList<>();
+//    streets
+//        .stream()
+//        .filter(s -> s.isNotClosed)
+//        .collect(Collectors.toSet(s))
+//    ;
+//  }
 
   public List<Boolean> cleanerCleansEverything() {
     if (room.isRoomDoorOpen) {
@@ -105,7 +116,4 @@ public class RoomCleaningService {
     }
     return toString() + roomStatus;
   }
-
-
-
 }

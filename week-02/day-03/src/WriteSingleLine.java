@@ -25,8 +25,6 @@ public class WriteSingleLine {
       Files.write(filePath, content);
       System.out.println("File successfully overwritten.");
     } catch (Exception e) {
-//      e.printStackTrace();
-//      ez az amivel ki lehet iratni vele a kivételeket, és jobban múködik mint a rendszeranalitika
       System.out.println("Unable to write file: my-file.txt");
     }
   }
