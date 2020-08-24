@@ -9,8 +9,12 @@ public class Exercise4 {
     double averageNum = numbers.stream()
         .filter(num -> num % 2 != 0)
         .mapToDouble(Double::valueOf)
+//      .mapToInt(num -> num)
         .average()
         .orElse(0);
+//        csak akkor működik, ha streamben marad:
+//      .ifPresent(System.out::println);
+
     System.out.println(averageNum);
   }
 }
