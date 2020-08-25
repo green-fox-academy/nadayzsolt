@@ -1,0 +1,62 @@
+input {
+    background-color: yellow;
+    padding: 25px;
+}
+
+body {
+    background: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+article {
+    padding: 5% 10%;
+    margin: 10%;
+    background: white;
+    display: -ms-flexbox;
+    justify-content: start;
+    align-items: flex-start;
+}
+
+h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+#forgetIt {
+    display: flex;
+    justify-content: end;
+    font-size: 8px;
+}
+
+#buttonDiv {
+    display: flex;
+    justify-content: start;
+    margin-top: 3%;
+}
+
+button {
+    border-radius: 20px;
+    padding: 4px 20px;
+    background: black;
+    color: #ffffff;
+    padding: 5% ;
+}
+
+label {
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+input {
+    width: auto;
+    padding: 5% 15%;
+}
+
+#password {
+    ;
+}
