@@ -1,0 +1,36 @@
+body {
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    display: table;
+    margin: 10%;
+    background: white;
+    border: 1px blue solid;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+th {
+    border: 1px grey solid;
+    background: black;
+    color: lightgray;
+    border-bottom: 2px grey solid;
+}
+
+td {
+    border: 1px grey solid;
+    /*border-collapse: collapse;*/
+    width: 150px;
+    /*height: ;*/
+    margin: 0;
+    padding: 5%;
+
+}
+
+.grey {
+    background: lightgrey;
+}
