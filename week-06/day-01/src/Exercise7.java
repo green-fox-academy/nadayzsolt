@@ -6,10 +6,10 @@ public class Exercise7 {
 //    Write a Stream Expression to find the strings which starts with a given letter(as parameter), in the following list:
     List<String>
         cities = Arrays
-        .asList("ROME", "LONDON", "NAIROBI", "CALIFORNIA", "ZURICH", "NEW DELHI", "AMSTERDAM",
+        .asList("LOME", "LONDON", "NAIROBI", "LALIFORNIA", "ZURICH", "NEW DELHI", "AMSTERDAM",
             "ABU DHABI", "PARIS");
     cities.stream()
-        .filter(word -> word.startsWith("Z"))
+        .filter(word -> word.startsWith("L"))
         .forEach(System.out::println);
   }
 }
