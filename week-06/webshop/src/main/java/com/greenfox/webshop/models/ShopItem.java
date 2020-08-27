@@ -3,10 +3,17 @@ package com.greenfox.webshop.models;
 public class ShopItem {
   String name;
   String description;
-  int price;
+  double price;
   int quantityOfStock;
 
   public ShopItem() {
+  }
+
+  public ShopItem(String name, String description, double price, int quantityOfStock) {
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.quantityOfStock = quantityOfStock;
   }
 
   public String getName() {
@@ -17,7 +24,7 @@ public class ShopItem {
     return description;
   }
 
-  public int getPrice() {
+  public double getPrice() {
     return price;
   }
 

@@ -27,10 +27,10 @@
         <th>Quantity of Stock</th>
     </tr>
     <tr th:each="shopItem : ${shopItems}">
-        <td th:text="${shopItem.getName()}"></td>
-        <td th:text="${shopItem.getDescription()}"></td>
-        <td th:text="${shopItem.getPrice()}"></td>
-        <td th:text="${shopItem.getQuantity()}"></td>
+        <td th:text="${shopItem.name}"></td>
+        <td th:text="${shopItem.description}"></td>
+        <td th:text="${shopItem.price}"></td>
+        <td th:text="${shopItem.quantityOfStock}"></td>
     </tr>
 </table>
 </body>
