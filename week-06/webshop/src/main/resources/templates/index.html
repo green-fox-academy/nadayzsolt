@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <style link="static/styles.css" rel="stylesheet"></style>
+    <style rel="stylesheet" link="static\styles.css"></style>
     <title>Title</title>
 </head>
 <body>
@@ -26,7 +26,7 @@
         <th>Price</th>
         <th>Quantity of Stock</th>
     </tr>
-    <tr>
+    <tr th:each="shopItem : ${shopItems}">
         <td th:text="${shopItem.getName()}"></td>
         <td th:text="${shopItem.getDescription()}"></td>
         <td th:text="${shopItem.getPrice()}"></td>
