@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <style link="static/styles.css" rel="stylesheet"></style>
     <title>Title</title>
 </head>
 <body>
-
+<header>
+    <h1>My Shop</h1><br>
+    <a href="">ONLY AVAILABLE</a>
+    <a href="">CHEAPEST FIRST</a>
+    <a href="">CONTAINS NIKE</a>
+    <a href="">AVERAGE STOCK</a>
+    <a href="">MOST EXPENSIVE AVAILABLE</a>
+</header>
+<form action="/" method="post">
+    <label for="searchBar">Search for:</label><br>
+    <input id="searchBar" name="searchBar">
+    <button>Search</button>
+</form>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity of Stock</th>
+    </tr>
+    <tr>
+        <td th:text="${shopItem.getName()}"></td>
+        <td th:text="${shopItem.getDescription()}"></td>
+        <td th:text="${shopItem.getPrice()}"></td>
+        <td th:text="${shopItem.getQuantity()}"></td>
+    </tr>
+</table>
 </body>
 </html>
