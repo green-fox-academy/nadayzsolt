@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style rel="stylesheet" link="static\styles.css"></style>
+    <title>Average Stock Quantity</title>
+</head>
+<body>
+<header>
+    <h1>Average Stock Quantity</h1><br>
+    <a href="/">HOMEPAGE</a>
+    <a href="/only-available">ONLY AVAILABLE</a>
+    <a href="/cheapest-first">CHEAPEST FIRST</a>
+    <a href="/contains-nike">CONTAINS NIKE</a>
+    <a href="/most-expensive">MOST EXPENSIVE AVAILABLE</a>
+</header>
+<p th:text="'The average stock quantity of all the items combined is: ' + ${averageStock} + 'pieces available/item.'"/>
+</body>
+</html>

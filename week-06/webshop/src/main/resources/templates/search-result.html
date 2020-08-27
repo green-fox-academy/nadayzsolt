@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <style rel="stylesheet" link="static\styles.css"></style>
-    <title>My Shop HomePage</title>
+    <title>Search Result</title>
 </head>
 <body>
 <header>
-    <h1>My Shop</h1><br>
+    <h1>Search Result</h1><br>
     <a href="/only-available">ONLY AVAILABLE</a>
-    <a href="/cheapest-first">CHEAPEST FIRST</a>
     <a href="/contains-nike">CONTAINS NIKE</a>
+    <a href="/cheapest-first">CHEAPEST FIRST</a>
     <a href="/average-stock">AVERAGE STOCK</a>
     <a href="/most-expensive">MOST EXPENSIVE AVAILABLE</a>
-</header>
-<form action="/search" method="post">
-    <label for="searchBar">Search for:</label><br>
-    <input id="searchBar" name="searchBar">
-    <button>Search</button>
-</form>
 <table>
     <tr>
         <th>Name</th>
@@ -26,7 +20,7 @@
         <th>Price</th>
         <th>Quantity of Stock</th>
     </tr>
-    <tr th:each="shopItem : ${shopItems}">
+    <tr th:each="shopItem : ${itemsContainingSearchBar}">
         <td th:text="${shopItem.name}"></td>
         <td th:text="${shopItem.description}"></td>
         <td th:text="${shopItem.price}"></td>

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <style rel="stylesheet" link="static\styles.css"></style>
-    <title>My Shop HomePage</title>
+    <title>Only The Available Products</title>
 </head>
 <body>
 <header>
-    <h1>My Shop</h1><br>
-    <a href="/only-available">ONLY AVAILABLE</a>
+    <h1>Only Available</h1><br>
+    <a href="/">HOMEPAGE</a>
     <a href="/cheapest-first">CHEAPEST FIRST</a>
     <a href="/contains-nike">CONTAINS NIKE</a>
     <a href="/average-stock">AVERAGE STOCK</a>
     <a href="/most-expensive">MOST EXPENSIVE AVAILABLE</a>
 </header>
-<form action="/search" method="post">
+<form action="/" method="post">
     <label for="searchBar">Search for:</label><br>
     <input id="searchBar" name="searchBar">
     <button>Search</button>
@@ -26,7 +26,7 @@
         <th>Price</th>
         <th>Quantity of Stock</th>
     </tr>
-    <tr th:each="shopItem : ${shopItems}">
+    <tr th:each="shopItem : ${availableItems}">
         <td th:text="${shopItem.name}"></td>
         <td th:text="${shopItem.description}"></td>
         <td th:text="${shopItem.price}"></td>

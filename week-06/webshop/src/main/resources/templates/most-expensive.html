@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style rel="stylesheet" link="static\styles.css"></style>
+    <title>Average Stock Quantity</title>
+</head>
+<body>
+<header>
+    <h1>Average Stock Quantity</h1><br>
+    <a href="/">HOMEPAGE</a>
+    <a href="/only-available">ONLY AVAILABLE</a>
+    <a href="/cheapest-first">CHEAPEST FIRST</a>
+    <a href="/contains-nike">CONTAINS NIKE</a>
+    <a href="/average-stock">AVERAGE STOCK</a>
+</header>
+<p th:text="'The most expensive item is a ' + ${mostExpensiveName} + ', to be more specific, the ' + ${mostExpensiveDescription} + ', and this costs: ' + ${mostExpensivePrice} + ' Kč.'"/>
+</body>
+</html>

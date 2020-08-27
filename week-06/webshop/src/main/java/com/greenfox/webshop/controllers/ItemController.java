@@ -3,9 +3,15 @@ package com.greenfox.webshop.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import com.greenfox.webshop.models.ShopItem;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ItemController {
@@ -28,4 +34,68 @@ public class ItemController {
     return "index";
   }
 
+  @GetMapping("/only-available")
+  public String listAvailableItems(Model model) {
+    List<ShopItem> availableItems = shopItems.stream()
+        .filter(shopItem -> shopItem.getQuantityOfStock() != 0)
+        .collect(Collectors.toList());
+    model.addAttribute("availableItems", availableItems);
+    return "only-available";
+  }
+
+  @GetMapping("/cheapest-first")
+  public String listByIncreasingPrice(Model model) {
+     List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
+        .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
+        .collect(Collectors.toList());
+    model.addAttribute("itemsSortedByIncreasingPrice", itemsSortedByIncreasingPrice);
+    return "cheapest-first";
+  }
+
+  @GetMapping("/contains-nike")
+  public String listItemsContainingNike(Model model) {
+    List<ShopItem> itemsContainingNike = shopItems.stream()
+        .filter(shopItem -> shopItem.getDescription().contains("Nike") || shopItem.getName().contains("Nike"))
+        .collect(Collectors.toList());
+    model.addAttribute("itemsContainingNike", itemsContainingNike);
+    return "contains-nike";
+  }
+
+  @GetMapping("/average-stock")
+  public String getAverageStock(Model model) {
+    OptionalDouble averageStockObject = shopItems.stream()
+        .mapToInt(ShopItem::getQuantityOfStock)
+        .average();
+    double averageStock = averageStockObject.orElse(-1);
+    model.addAttribute("averageStock", averageStock);
+    return "average-stock";
+  }
+  @GetMapping("/most-expensive")
+  public String getMostExpensive(Model model) {
+    List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
+        .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
+        .collect(Collectors.toList());
+    double mostExpensivePrice = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getPrice();
+    model.addAttribute("mostExpensivePrice", mostExpensivePrice);
+    String mostExpensiveName = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getName();
+    model.addAttribute("mostExpensiveName", mostExpensiveName);
+    String mostExpensiveDescription = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getDescription();
+    model.addAttribute("mostExpensiveDescription", mostExpensiveDescription);
+    return "most-expensive";
+  }
+
+  @GetMapping("/search-result")
+  public String listItemsContainingSearchedElement (Model model, String searchBar) {
+    List<ShopItem> itemsContainingSearchBar = shopItems.stream()
+        .filter(shopItem -> shopItem.getDescription().contains(searchBar) || shopItem.getName().contains("Nike"))
+        .collect(Collectors.toList());
+    model.addAttribute("itemsContainingSearchBar", itemsContainingSearchBar);
+    return "search-result";
+  }
+
+
+  @PostMapping("/")
+  public String getSearchString (@ModelAttribute String searchBar) {
+    return searchBar;
+  }
 }
