@@ -20,7 +20,7 @@
         <th>Price</th>
         <th>Quantity of Stock</th>
     </tr>
-    <tr th:each="shopItem : ${itemsContainingSearchBar}">
+    <tr th:each="shopItem : ${itemsContainingSearchName}">
         <td th:text="${shopItem.name}"></td>
         <td th:text="${shopItem.description}"></td>
         <td th:text="${shopItem.price}"></td>

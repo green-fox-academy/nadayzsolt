@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ItemController {
 
   List<ShopItem> shopItems = new ArrayList<>();
+  List<ShopItem> itemsContainingSearchName = new ArrayList<>();
 
   public ItemController() {
     shopItems.add(
@@ -45,7 +46,7 @@ public class ItemController {
 
   @GetMapping("/cheapest-first")
   public String listByIncreasingPrice(Model model) {
-     List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
+    List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
         .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
         .collect(Collectors.toList());
     model.addAttribute("itemsSortedByIncreasingPrice", itemsSortedByIncreasingPrice);
@@ -55,7 +56,8 @@ public class ItemController {
   @GetMapping("/contains-nike")
   public String listItemsContainingNike(Model model) {
     List<ShopItem> itemsContainingNike = shopItems.stream()
-        .filter(shopItem -> shopItem.getDescription().contains("Nike") || shopItem.getName().contains("Nike"))
+        .filter(shopItem -> shopItem.getDescription().contains("Nike") ||
+            shopItem.getName().contains("Nike"))
         .collect(Collectors.toList());
     model.addAttribute("itemsContainingNike", itemsContainingNike);
     return "contains-nike";
@@ -70,32 +72,36 @@ public class ItemController {
     model.addAttribute("averageStock", averageStock);
     return "average-stock";
   }
+
   @GetMapping("/most-expensive")
   public String getMostExpensive(Model model) {
     List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
         .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
         .collect(Collectors.toList());
-    double mostExpensivePrice = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getPrice();
+    double mostExpensivePrice =
+        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getPrice();
     model.addAttribute("mostExpensivePrice", mostExpensivePrice);
-    String mostExpensiveName = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getName();
+    String mostExpensiveName =
+        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getName();
     model.addAttribute("mostExpensiveName", mostExpensiveName);
-    String mostExpensiveDescription = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size()-1).getDescription();
+    String mostExpensiveDescription =
+        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getDescription();
     model.addAttribute("mostExpensiveDescription", mostExpensiveDescription);
     return "most-expensive";
   }
 
   @GetMapping("/search-result")
-  public String listItemsContainingSearchedElement (Model model, String searchBar) {
-    List<ShopItem> itemsContainingSearchBar = shopItems.stream()
-        .filter(shopItem -> shopItem.getDescription().contains(searchBar) || shopItem.getName().contains("Nike"))
-        .collect(Collectors.toList());
-    model.addAttribute("itemsContainingSearchBar", itemsContainingSearchBar);
+  public String listItemsContainingSearchedElement(Model model) {
+    model.addAttribute("itemsContainingSearchName", itemsContainingSearchName);
     return "search-result";
   }
 
-
-  @PostMapping("/")
-  public String getSearchString (@ModelAttribute String searchBar) {
-    return searchBar;
+  @PostMapping("/search-result")
+  public String getSearchString(String searchName) {
+    itemsContainingSearchName = shopItems.stream()
+        .filter(shopItem -> shopItem.getDescription().contains(searchName) ||
+            shopItem.getName().contains(searchName))
+                .collect(Collectors.toList());
+    return "redirect:/search-result";
   }
 }
