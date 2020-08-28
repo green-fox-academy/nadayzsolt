@@ -40,6 +40,7 @@ public class ItemController {
     List<ShopItem> availableItems = shopItems.stream()
         .filter(shopItem -> shopItem.getQuantityOfStock() != 0)
         .collect(Collectors.toList());
+
     model.addAttribute("availableItems", availableItems);
     return "only-available";
   }
@@ -49,6 +50,7 @@ public class ItemController {
     List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
         .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
         .collect(Collectors.toList());
+
     model.addAttribute("itemsSortedByIncreasingPrice", itemsSortedByIncreasingPrice);
     return "cheapest-first";
   }
@@ -59,6 +61,7 @@ public class ItemController {
         .filter(shopItem -> shopItem.getDescription().contains("Nike") ||
             shopItem.getName().contains("Nike"))
         .collect(Collectors.toList());
+
     model.addAttribute("itemsContainingNike", itemsContainingNike);
     return "contains-nike";
   }
@@ -69,6 +72,7 @@ public class ItemController {
         .mapToInt(ShopItem::getQuantityOfStock)
         .average();
     double averageStock = averageStockObject.orElse(-1);
+
     model.addAttribute("averageStock", averageStock);
     return "average-stock";
   }
@@ -76,17 +80,16 @@ public class ItemController {
   @GetMapping("/most-expensive")
   public String getMostExpensive(Model model) {
     List<ShopItem> itemsSortedByIncreasingPrice = shopItems.stream()
-        .sorted((shopItem1, shopItem2) -> (int) (shopItem1.getPrice() - shopItem2.getPrice()))
+        .sorted(ShopItem::compareTo)
         .collect(Collectors.toList());
-    double mostExpensivePrice =
-        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getPrice();
-    model.addAttribute("mostExpensivePrice", mostExpensivePrice);
-    String mostExpensiveName =
-        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getName();
-    model.addAttribute("mostExpensiveName", mostExpensiveName);
-    String mostExpensiveDescription =
-        itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1).getDescription();
-    model.addAttribute("mostExpensiveDescription", mostExpensiveDescription);
+
+    ShopItem lastItem = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1);
+
+
+    model.addAttribute("mostExpensivePrice", lastItem.getPrice());
+    model.addAttribute("mostExpensiveName", lastItem.getPrice());
+    model.addAttribute("mostExpensiveDescription", lastItem.getDescription());
+
     return "most-expensive";
   }
 
@@ -102,6 +105,7 @@ public class ItemController {
         .filter(shopItem -> shopItem.getDescription().contains(searchName) ||
             shopItem.getName().contains(searchName))
                 .collect(Collectors.toList());
+
     return "redirect:/search-result";
   }
 }
