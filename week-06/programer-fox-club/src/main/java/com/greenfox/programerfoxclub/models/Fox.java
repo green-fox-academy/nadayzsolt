@@ -18,8 +18,9 @@ public class Fox {
 
   public Fox(String name) {
     this.name = name;
-    this.tricks.add("catching sugar");
-    this.food = "sugar";
+//    this.tricks.add("catching sugar");
+    this.tricks.add("killing time");
+        this.food = "sugar";
     this.drink = "sugardrink";
   }
 
