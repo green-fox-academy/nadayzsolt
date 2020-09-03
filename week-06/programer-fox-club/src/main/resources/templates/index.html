@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Fox</title>
+</head>
+<body>
+<a href="/index.html">Information</a><br>
+<img src="greenfox.png">
+<p th:text="'This is Mr.' + ${name} + '. Currently living on pizza and lemonade. He knows 2 tricks.'"></p>
+<h1>Known tricks</h1>
+<li>
+    <ul>write HTML</ul>
+    <ul>code in Java</ul>
+</li>
+
+</body>
+</html>
