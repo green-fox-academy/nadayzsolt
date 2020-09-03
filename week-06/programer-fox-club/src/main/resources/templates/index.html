@@ -7,11 +7,10 @@
 <body>
 <a href="/index.html">Information</a><br>
 <img src="greenfox.png">
-<p th:text="'This is Mr.' + ${name} + '. Currently living on pizza and lemonade. He knows 2 tricks.'"></p>
-<h1>Known tricks</h1>
-<li>
-    <ul>write HTML</ul>
-    <ul>code in Java</ul>
+<p th:text="'This is Mr.' + ${name} + '. Currently living on ' + ${food} + ' and ' + ${drink} + '. He knows ' + ${trickAmount} + ' trick' + ${trickcanbeplural} + '.'"> </p>
+<h1 th:text="'Known trick' + ${trickcanbeplural}"> </h1>
+<li th:each="trick : ${tricks}">
+    <ul th:text="${trick}"></ul>
 </li>
 
 </body>
