@@ -24,7 +24,7 @@ public class HelloWebController {
   @RequestMapping("/web/greeting")
   public String greeting(Model model, @RequestParam(required = false) String name) {
     Random random = new Random();
-    int randomNum = random.nextInt(50);
+    int randomNum = random.nextInt(hellos.length);
     String randomLanguageHello = hellos[randomNum];
     model.addAttribute("name", name);
     model.addAttribute("randLangHello", randomLanguageHello);

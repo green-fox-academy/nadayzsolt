@@ -3,14 +3,11 @@ package com.greenfox.webshop.controllers;
 import java.util.ArrayList;
 import java.util.List;
 import com.greenfox.webshop.models.ShopItem;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -84,7 +81,6 @@ public class ItemController {
         .collect(Collectors.toList());
 
     ShopItem lastItem = itemsSortedByIncreasingPrice.get(itemsSortedByIncreasingPrice.size() - 1);
-
 
     model.addAttribute("mostExpensivePrice", lastItem.getPrice());
     model.addAttribute("mostExpensiveName", lastItem.getPrice());
