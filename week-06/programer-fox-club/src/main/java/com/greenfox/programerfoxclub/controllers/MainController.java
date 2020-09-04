@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
   FoxService foxService;
-  Fox existFox;
+
   @Autowired
   public MainController(FoxService foxService) {
     this.foxService = foxService;
@@ -32,53 +32,73 @@ public class MainController {
   @PostMapping("/login-result")
   public String loginPostPetName(String name) {
     List<String> foxNames = new ArrayList<>();
-    for (Fox fox : foxService.foxes) {
+    for (Fox fox : foxService.getFoxes()) {
       foxNames.add(fox.getName());
     }
 //    System.out.println(foxNames);
     if (!foxNames.contains(name)) {
-      foxService.foxes.add(new Fox(name));
+      foxService.addFoxes(name);
     }
     return "redirect:/?name=" + name;
   }
+
   @PostMapping("/nutrition-result")
-  public String loginPostPetName(String food, String drink, Fox existFox, @RequestParam String name) {
-    existFox.setDrink(drink);
-    existFox.setFood(food);
-    return "redirect:/";
+  public String loginPostPetName(String food, String drink,
+                                 @RequestParam(required = false) String name) {
+    Fox selectedFox = foxService.selectFoxesByName(name);
+    if (drink != null) selectedFox.setDrink(drink);
+    if (food != null) selectedFox.setFood(food);
+    return "redirect:/?name=" + name;
   }
 
   @GetMapping("/")
   public String loginGetPetName(Model model, @RequestParam(required = false) String name) {
-    model.addAttribute("name", name);
-    existFox =
-        foxService.foxes.stream().filter(fox -> fox.getName().equals(name)).findFirst()
-            .orElse(null);
-    model.addAttribute("food", existFox.getFood());
-    model.addAttribute("drink", existFox.getDrink());
-    int tricksAmount = existFox.getTricks().size();
+    Fox selectedFox = foxService.selectFoxesByName(name);
+    model.addAttribute("name", selectedFox.getName());
+    model.addAttribute("food", selectedFox.getFood());
+    model.addAttribute("drink", selectedFox.getDrink());
+    model.addAttribute("trickstolearn", foxService.getTricks());
+
+    int tricksAmount = selectedFox.getTricks().size();
     model.addAttribute("trickAmount", tricksAmount);
-    if (tricksAmount != 1) {
-      model.addAttribute("trickcanbeplural", "s");
-    } else {
-      model.addAttribute("trickcanbeplural", "");
-    }
+    String nothingOrPluralEnding = (tricksAmount != 1) ? "s" : "";
+    model.addAttribute("nothingOrPluralEnding", nothingOrPluralEnding);
+
     if (tricksAmount > 0) {
-      model.addAttribute("tricks", existFox.getTricks());
+      model.addAttribute("tricks", selectedFox.getTricks());
     } else {
       model.addAttribute("tricks", "You know no tricks, yet. Go and learn some.");
     }
+
+    model.addAttribute("foods", foxService.getFoods());
+    model.addAttribute("drinks", foxService.getDrinks());
     return "index";
   }
 
+
   @RequestMapping(value = {"/nutritionStore"}, method = RequestMethod.GET)
   public String feedTheFox(Model model, @RequestParam(required = false) String name) {
-    String[] foodArray = {"bela", "cica", "paci", "elefant", "zoeldseg"};
-    List<String> foods = new ArrayList<String>(Arrays.asList(foodArray));
-    String[] drinkArray = {"Spyryt", "Miod pitny", "Kwas", "Orzechowka", "Warka Strong"};
-    List<String> drinks = new ArrayList<String>(Arrays.asList(drinkArray));
-    model.addAttribute("foods", foods);
-    model.addAttribute("drinks", drinks);
+
+    model.addAttribute("name", name);
+    model.addAttribute("foods", foxService.getFoods());
+    model.addAttribute("drinks", foxService.getDrinks());
     return "fox-nutrition";
   }
+
+  @GetMapping("/trickCenter")
+  public String manageTricks(Model model, @RequestParam(required = false) String name) {
+    model.addAttribute("name", name);
+    model.addAttribute("trickstolearn", foxService.getTricks());
+    return "trick-center";
+  }
+
+  @PostMapping("/trick-result")
+  public String loginPostPetName(String trick,
+                                 @RequestParam(required = false) String name) {
+    Fox selectedFox = foxService.selectFoxesByName(name);
+    if (!selectedFox.getTricks().contains(trick)) selectedFox.addTricks(trick);
+    return "redirect:/?name=" + name;
+  }
+
+
 }

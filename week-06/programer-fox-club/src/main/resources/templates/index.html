@@ -6,9 +6,13 @@
 </head>
 <body>
 <a th:href="'/?name=' + ${name}">Information</a><br>
+<a th:href="'/nutritionStore?name=' + ${name}">NutritionStore</a><br>
+<a th:href="'/trickCenter?name=' + ${name}">TrickCenter</a><br>
+<div th:insert="fox-nutrition.html :: header"></div>
+<div th:insert="trick-center.html :: trickyheader"></div>
 <img src="greenfox.png">
-<p th:text="'This is Mr.' + ${name} + '. Currently living on ' + ${food} + ' and ' + ${drink} + '. He knows ' + ${trickAmount} + ' trick' + ${trickcanbeplural} + '.'"> </p>
-<h1 th:text="'Known trick' + ${trickcanbeplural}"></h1>
+<p th:text="'This is Mr.' + ${name} + '. Currently living on ' + ${food} + ' and ' + ${drink} + '. He knows ' + ${trickAmount} + ' trick' + ${nothingOrPluralEnding} + '.'"> </p>
+<h1 th:text="'Known trick' + ${nothingOrPluralEnding}"></h1>
 <li th:each="trick : ${tricks}">
     <ul th:text="${trick}"></ul>
 </li>
