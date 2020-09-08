@@ -39,6 +39,9 @@ public class Fox {
   public void addTricks(String trick) {
     tricks.add(trick);
   }
+  public void delTricks(String trick) {
+    tricks.remove(trick);
+  }
 
   public String getFood() {
     return food;

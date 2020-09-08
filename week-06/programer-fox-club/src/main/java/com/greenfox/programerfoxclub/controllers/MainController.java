@@ -3,9 +3,7 @@ package com.greenfox.programerfoxclub.controllers;
 import com.greenfox.programerfoxclub.models.Fox;
 import com.greenfox.programerfoxclub.services.FoxService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,14 +87,18 @@ public class MainController {
   public String manageTricks(Model model, @RequestParam(required = false) String name) {
     model.addAttribute("name", name);
     model.addAttribute("trickstolearn", foxService.getTricks());
+    Fox selectedFox = foxService.selectFoxesByName(name);
+    model.addAttribute("tricks", selectedFox.getTricks());
     return "trick-center";
   }
 
   @PostMapping("/trick-result")
-  public String loginPostPetName(String trick,
+  public String manageTricks(String trick, String deltrick,
                                  @RequestParam(required = false) String name) {
     Fox selectedFox = foxService.selectFoxesByName(name);
     if (!selectedFox.getTricks().contains(trick)) selectedFox.addTricks(trick);
+    // del function generates problem, cause trickcounter in the text, after a few iteration, sometimes counts an empty item as well, and becomes untrustworthy!
+    selectedFox.delTricks(deltrick);
     return "redirect:/?name=" + name;
   }
 
