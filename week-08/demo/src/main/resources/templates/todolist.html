@@ -15,7 +15,7 @@
     <button>x</button>
 </form>
 <table>
-    <tr th:each="item: ${todolist}">
+    <tr th:each="item : ${todolist}">
         <td th:text="${item.id}"></td>
         <form method="post" th:action="|/edit/${item.id}|">
             <td>
@@ -28,7 +28,7 @@
                 <input type="checkbox" name="done" value="true" th:checked="${item.done}"/>
             </td>
             <td>
-                <button>sub</button>
+                <button>submit</button>
             </td>
         </form>
         <td>

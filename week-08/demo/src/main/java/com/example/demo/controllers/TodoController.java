@@ -19,29 +19,34 @@ public class TodoController {
   }
 
   @GetMapping({"/", "/list"})
-  public String list(Model model) {
-    model.addAttribute("todolist", todoRepository.findAll());
+  public String renderTodos(Model model) {
+    model.addAttribute("todolist",  todoRepository.findAllSorted());
     return "todolist";
   }
 
-  @PostMapping ("/list")
-  public String addTodo(String todoname){
+  @PostMapping("/list")
+  public String addTodo(String todoname) {
     todoRepository.save(new Todo(todoname));
     return "redirect:/list";
   }
 
-  @PostMapping ("/del/{id}")
-  public String delTodo(@PathVariable long id){
+  @PostMapping("/del/{id}")
+  public String delTodo(@PathVariable long id) {
     todoRepository.deleteById(id);
     return "redirect:/list";
   }
 
-  @PostMapping ("/edit/{id}")
-  public String setTodoUrgent(@PathVariable long id, boolean urgent, boolean done, String title) {
+  @PostMapping("/edit/{id}")
+  public String setTodoFields(@PathVariable long id, boolean urgent, boolean done, String title) {
     Todo actualTodo = todoRepository.findTodoById(id);
-    actualTodo.setTitle(title);
-    actualTodo.setUrgent(urgent);
+    String previousTitle = actualTodo.getTitle();
     actualTodo.setDone(done);
+    actualTodo.setUrgent(urgent);
+    if (!title.equals("")) {
+      actualTodo.setTitle(title);
+    } else {
+      actualTodo.setTitle(previousTitle);
+    }
     todoRepository.save(actualTodo);
     return "redirect:/list";
   }

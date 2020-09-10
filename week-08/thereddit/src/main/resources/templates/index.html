@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/style.css">
+    <title>RedditClone Main</title>
+</head>
+<body>
+<a href="/submit">Submit new post</a>
+
+<h1>Trending posts</h1>
+    <table>
+        <tr th:each="item : ${posts}">
+            <td th:text="${item.votes}"/>
+            <form method="post" th:action="|/vote/${item.id}|">
+                <td>
+                    <input class="link-button" type="submit" name="vote" value="+">
+                </td>
+                <td>
+                    <input class="link-button" type="submit" name="vote" value="-">
+                </td>
+            </form>
+            <td>
+                <a th:href="'http://' + ${item.url}">
+                    <span th:text="${item.title}"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
