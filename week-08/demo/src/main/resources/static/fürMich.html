@@ -1,0 +1,39 @@
+<! -- DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todolist Main</title>
+</head>
+<body>
+<p>here is the first @PathVariable sample:</p>
+<form th:action="|/bela/${todo.getId()}|" method="post">
+<button>x</button></form>
+<p> here is another more lifelike example with a list</p>
+<ul th:each="item: ${todolist}">
+    <li th:text="${item.getName()}"/>
+    <li>
+        <form th:action="|/list/${item.id}|">
+            <button>c</button>
+        </form>
+<!-- and here is the the endpoint part of the story:
+  @PostMapping ("/list/{id}")
+  public String bela(@PathVariable int id){ -->
+    </li>
+</ul>
+<p> And here is the "form" version to have it:</p>
+<form action="/bela" method="post">
+    <label for="newaction">In case U would not like wait for some kind of miracle, please add some new todos - so U could read &
+        execute:</label>
+    <input name="newaction" id="newaction"> <input name="bela"><input name="bela2">
+    <button>x</button></form>
+<!-- and here is the endpoint part of the story:
+  @PostMapping ("/bela")
+  public String bela(String newaction,String bela, String bela2){ -->
+<p> and here is the @ParamRequest</p>
+<header th:fragment="trickyheader">
+    <form th:action="'/trick-result?name='+${name}" method="post"><button>bdsm</button></form>
+<!-- and here is the endpoint part of the story:
+  @PostMapping("/trick-result")
+  public String manageTricks(@RequestParam(required = false) String name) { -->
+</body>
+</html>

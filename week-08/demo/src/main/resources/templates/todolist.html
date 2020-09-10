@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todolist Main</title>
+</head>
+<body>
+<p>Here should be the list, unless it's empty because U cannot see anything here than, yet (zherefor here u come w/ this
+    little text, just to make sure U not fell the inner pain triggered by seeing nothing):</p>
+<form action="/list" method="post">
+    <label for="todoname">In case U would not like wait for some kind of miracle, fell free to add some new todos - so U
+        could read &
+        execute:</label>
+    <input name="todoname" id="todoname">
+    <button>x</button>
+</form>
+<table>
+    <tr th:each="item: ${todolist}">
+        <td th:text="${item.id}"></td>
+        <form method="post" th:action="|/edit/${item.id}|">
+            <td>
+                <input type="text" name= "title" th:placeholder="${item.title}"/>
+            </td>
+            <td>
+                <input type="checkbox" name="urgent" value="true" th:checked="${item.urgent}"/>
+            </td>
+            <td>
+                <input type="checkbox" name="done" value="true" th:checked="${item.done}"/>
+            </td>
+            <td>
+                <button>sub</button>
+            </td>
+        </form>
+        <td>
+            <form method="post" th:action="|/del/${item.id}|">
+                <button>Delete</button>
+            </form>
+        </td>
+    </tr>
+    <thead>
+    <th>id</th>
+    <th>title</th>
+    <th>urgent</th>
+    <th>done</th>
+    <th>save</th>
+    <th>delete</th>
+    </thead>
+</table>
+</body>
+</html>
