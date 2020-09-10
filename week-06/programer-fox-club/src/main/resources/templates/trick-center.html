@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>TrickyFox</title>
+</head>
+<body>
+<header th:fragment="trickyheader">
+    <form th:action="'/trick-result?name='+${name}" method="post">
+        <label for="tricks">Tricks</label>
+        <select name="trick" id="tricks">
+            <option value="" selected disabled>Select trick</option>
+            <option th:each="trick : ${trickstolearn}"
+                    th:text="${trick}"
+                    th:value="${trick}">
+            </option>
+        </select>
+        <select name="deltrick">
+            <option value="" selected disabled>Delete trick</option>
+            <option th:each="trick : ${tricks}"
+                    th:text="${trick}"
+                    th:value="${trick}">
+            </option>
+        </select>
+        <button type="submit">Click 'm!</button>
+    </form>
+</header>
+</body>
+</html>

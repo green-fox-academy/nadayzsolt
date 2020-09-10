@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FeedFox</title>
+</head>
+<body>
+<header th:fragment="header">
+    <form th:action="'/nutrition-result?name='+${name}" method="post">
+        <label for="food">Food</label>
+        <select name="food" id="food">
+            <option value="" selected disabled>Select food</option>
+            <option th:each="food : ${foods}"
+                    th:text="${food}"
+                    th:value="${food}">
+            </option>
+        </select>
+        <label for="drink">Drink</label>
+        <select name="drink" id="drink">
+            <option value="" selected disabled>Select drink</option>
+            <option th:each="drink : ${drinks}"
+                    th:text="${drink}"
+                    th:value="${drink}">
+            </option>
+        </select>
+        <button type="submit">Click 'm!</button>
+    </form>
+</header>
+</body>
+</html>
