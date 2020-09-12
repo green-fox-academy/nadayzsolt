@@ -36,9 +36,9 @@ public class PostController {
   }
 
   @PostMapping("/vote/{id}")
-  public String setTodoFields(@PathVariable long id, String vote, @RequestParam (required = false) Integer pageCounter) {
+  public String setTodoFields(@PathVariable long id, String vote /*, @RequestParam (required = false) Integer pageCounter*/) {
     postService.editVotes(id, vote);
-    return "redirect:/main?pageCounter=" + pageCounter;
+    return "redirect:/main?pageCounter=1"; // átírni amint lehet
   }
 
   @PostMapping("/setnew")
