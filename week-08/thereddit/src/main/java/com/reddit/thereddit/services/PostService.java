@@ -2,38 +2,49 @@ package com.reddit.thereddit.services;
 
 import com.reddit.thereddit.models.Post;
 import com.reddit.thereddit.repositories.PostRepository;
+import java.awt.print.Pageable;
+import java.util.ArrayList;
 import java.util.List;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-@Getter
-@Setter
 @Service
-@RequiredArgsConstructor
 public class PostService {
   private PostRepository postRepository;
+  private List<Integer> pages;
 
   @Autowired
-  public PostService(PostRepository postRepository) {
+  public PostService(PostRepository postRepository, List<Integer> pages) {
     this.postRepository = postRepository;
+    this.pages = new ArrayList<Integer>();
   }
 
-  public List<Post> getSortedPostByVotes(){
-      return postRepository.findAllSorted();
+  public List<Integer> getListOfPages() {
+    long pageAmount = postRepository.count() % 10 == 0 ? postRepository.count() / 10 : (postRepository.count() / 10) + 1;
+    pages = new ArrayList<>();
+    for (int i = 1; i <= pageAmount; i++) {
+      pages.add(i);
     }
-
-  public Post getActualPost(Long id){
-    return postRepository.findPostById(id);
+    return pages;
   }
 
-  public Post addNewPost (String title, String url){
+  public List<Post> getSortedPostByVotes(Integer pageCounter) {
+    pageCounter = pageCounter <= 1 ? 1 : pageCounter;
+    int startIndex = (pageCounter - 1) * 10;
+    return postRepository.findAllSorted().stream().skip(startIndex).limit(10)
+        .collect(Collectors.toList());
+  }
+
+  public Post addNewPost(String title, String url) {
     return postRepository.save(new Post(title, url));
   }
 
-  public Post editVotes (long id, String vote){
+  public Post editVotes(long id, String vote) {
     Post actualPost = postRepository.findPostById(id);
     int addition = (vote.equals("+")) ? 1 : (vote.equals("-")) ? -1 : 0;
     actualPost.setVotes(actualPost.getVotes() + addition);

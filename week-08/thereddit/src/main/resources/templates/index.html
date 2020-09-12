@@ -12,7 +12,7 @@
     <table>
         <tr th:each="item : ${posts}">
             <td th:text="${item.votes}"/>
-            <form method="post" th:action="|/vote/${item.id}|">
+            <form method="post" th:action="|/vote/${item.id}|"> <!-- itt kellene elkérni a @requestparamos oldaljelzetet is, hogy ne mindig az első oldara vigyen vissza  -->
                 <td>
                     <input class="link-button" type="submit" name="vote" value="+">
                 </td>
@@ -27,5 +27,8 @@
             </td>
         </tr>
     </table>
+<span th:each="page : ${pages}">
+<a th:href="'/main?pageCounter='+${page}" th:text="${page}" />
+</span>
 </body>
 </html>

@@ -7,23 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Table (name = "posts")
 public class Post {
 
   @Column (name = "post_ids")
   @Id
   @GeneratedValue (strategy = GenerationType.IDENTITY)
-  long id;
-  String title;
-  String url;
-  int votes;
+  private long id;
+  private String title;
+  private String url;
+  private int votes;
 
   public Post(String title, String url) {
     this.title = title;
