@@ -2,15 +2,10 @@ package com.reddit.thereddit.services;
 
 import com.reddit.thereddit.models.Post;
 import com.reddit.thereddit.repositories.PostRepository;
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service

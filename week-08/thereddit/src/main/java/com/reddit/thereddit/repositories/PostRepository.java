@@ -1,9 +1,7 @@
 package com.reddit.thereddit.repositories;
 
 import com.reddit.thereddit.models.Post;
-import java.awt.print.Pageable;
 import java.util.List;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
