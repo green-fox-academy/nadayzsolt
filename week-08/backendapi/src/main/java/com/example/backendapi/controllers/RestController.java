@@ -3,15 +3,27 @@ package com.example.backendapi.controllers;
 import com.example.backendapi.models.Appended;
 import com.example.backendapi.models.ErrorMessage;
 import com.example.backendapi.models.Input;
+import com.example.backendapi.models.InputSumFactor;
+import com.example.backendapi.models.SumFactor;
 import com.example.backendapi.models.WelcomeMessage;
+import com.example.backendapi.services.MainService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
+  MainService mainService;
+
+  @Autowired
+  public RestController(MainService mainService) {
+    this.mainService = mainService;
+  }
 
   @GetMapping("/doubling")
   public ResponseEntity getDoubleResult(@RequestParam(required = false) Integer input) {
@@ -41,7 +53,18 @@ public class RestController {
   }
 
   @GetMapping("/appenda/{appendable}")
-  public ResponseEntity showGreetingsByName(@PathVariable (required = false) String appendable) {
-      return ResponseEntity.status(HttpStatus.OK).body(new Appended(appendable));
+  public ResponseEntity appendAnALetterOnWord(@PathVariable(required = false) String appendable) {
+    return ResponseEntity.status(HttpStatus.OK).body(new Appended(appendable));
+  }
+
+  @PostMapping("/dountil/{action}")
+  public ResponseEntity doActionUntil(@PathVariable(required = false) String action,
+                                      @RequestBody InputSumFactor inputSumFactor) {
+    if (inputSumFactor == null) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new ErrorMessage("Please provide a number!"));
+    } else {
+      return ResponseEntity.status(HttpStatus.OK).body(mainService.countSumOrFactor(action, inputSumFactor));
+    }
   }
 }
