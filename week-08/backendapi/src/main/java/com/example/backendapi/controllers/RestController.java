@@ -4,7 +4,6 @@ import com.example.backendapi.models.Appended;
 import com.example.backendapi.models.ErrorMessage;
 import com.example.backendapi.models.Input;
 import com.example.backendapi.models.InputSumFactor;
-import com.example.backendapi.models.SumFactor;
 import com.example.backendapi.models.WelcomeMessage;
 import com.example.backendapi.services.MainService;
 import org.springframework.beans.factory.annotation.Autowired;

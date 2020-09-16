@@ -2,7 +2,6 @@ package com.example.backendapi.services;
 
 import com.example.backendapi.models.InputSumFactor;
 import com.example.backendapi.models.SumFactor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
