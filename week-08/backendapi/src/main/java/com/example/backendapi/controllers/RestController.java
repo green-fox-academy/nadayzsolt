@@ -1,6 +1,7 @@
 package com.example.backendapi.controllers;
 
 import com.example.backendapi.models.Appended;
+import com.example.backendapi.models.ArrayHandlerInput;
 import com.example.backendapi.models.ErrorMessage;
 import com.example.backendapi.models.Input;
 import com.example.backendapi.models.InputSumFactor;
@@ -63,7 +64,22 @@ public class RestController {
       return ResponseEntity.status(HttpStatus.OK)
           .body(new ErrorMessage("Please provide a number!"));
     } else {
-      return ResponseEntity.status(HttpStatus.OK).body(mainService.countSumOrFactor(action, inputSumFactor));
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(mainService.countSumOrFactor(action, inputSumFactor));
     }
+  }
+
+  @PostMapping("/arrays")
+  public ResponseEntity handleArrays(@RequestBody ArrayHandlerInput arrayHandlerInput) {
+    if (arrayHandlerInput == null) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(new ErrorMessage("Please provide what to do with the numbers!"));
+    } else if (arrayHandlerInput.getWhat().equals("sum") || arrayHandlerInput.getWhat().equals("multiply")) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(mainService.countArrayHandler(arrayHandlerInput));
+    } else if (arrayHandlerInput.getWhat().equals("double")) {
+      return ResponseEntity.status(HttpStatus.OK)
+          .body(mainService.countArrayHandlerWithArray(arrayHandlerInput));
+    } else {throw new UnsupportedOperationException();}
   }
 }
