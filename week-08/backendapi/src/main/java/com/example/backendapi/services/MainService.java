@@ -5,11 +5,18 @@ import com.example.backendapi.models.ArrayHandler;
 import com.example.backendapi.models.ArrayHandlerWithArray;
 import com.example.backendapi.models.InputSumFactor;
 import com.example.backendapi.models.SumFactor;
+import com.example.backendapi.repositories.MainRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MainService {
+  MainRepository mainRepository;
 
+  @Autowired
+  public MainService(MainRepository mainRepository) {
+    this.mainRepository = mainRepository;
+  }
 
   public SumFactor countSumOrFactor(String action, InputSumFactor inputSumFactor) {
 

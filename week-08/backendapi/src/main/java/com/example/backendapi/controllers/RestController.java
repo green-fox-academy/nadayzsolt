@@ -5,8 +5,10 @@ import com.example.backendapi.models.ArrayHandlerInput;
 import com.example.backendapi.models.ErrorMessage;
 import com.example.backendapi.models.Input;
 import com.example.backendapi.models.InputSumFactor;
+import com.example.backendapi.models.Logger;
 import com.example.backendapi.models.WelcomeMessage;
 import com.example.backendapi.services.MainService;
+import java.sql.Timestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
   MainService mainService;
+  Logger logger;
+  Timestamp timestamp;
 
   @Autowired
   public RestController(MainService mainService) {
@@ -27,6 +31,9 @@ public class RestController {
 
   @GetMapping("/doubling")
   public ResponseEntity getDoubleResult(@RequestParam(required = false) Integer input) {
+
+//    logger.log();
+
     if (input == null) {
       return ResponseEntity.status(HttpStatus.OK)
           .body(new ErrorMessage("Please provide an input!"));
@@ -74,12 +81,20 @@ public class RestController {
     if (arrayHandlerInput == null) {
       return ResponseEntity.status(HttpStatus.OK)
           .body(new ErrorMessage("Please provide what to do with the numbers!"));
-    } else if (arrayHandlerInput.getWhat().equals("sum") || arrayHandlerInput.getWhat().equals("multiply")) {
+    } else if (arrayHandlerInput.getWhat().equals("sum") ||
+        arrayHandlerInput.getWhat().equals("multiply")) {
       return ResponseEntity.status(HttpStatus.OK)
           .body(mainService.countArrayHandler(arrayHandlerInput));
     } else if (arrayHandlerInput.getWhat().equals("double")) {
       return ResponseEntity.status(HttpStatus.OK)
           .body(mainService.countArrayHandlerWithArray(arrayHandlerInput));
-    } else {throw new UnsupportedOperationException();}
+    } else {
+      throw new UnsupportedOperationException();
+    }
   }
+
+//  @GetMapping("/log")
+//  public ResponseEntity getLogMessages() {
+//    return ResponseEntity.status(HttpStatus.OK).body(new Logger());
+//  }
 }
