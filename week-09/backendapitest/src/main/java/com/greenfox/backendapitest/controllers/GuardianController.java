@@ -14,7 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 public class GuardianController {
 
   @GetMapping ("/groot")
-  public ResponseEntity addResponse(@RequestParam (required = false) String message) {
+  public ResponseEntity addGrootResponse(@RequestParam (required = false) String message) {
     if (message == null || message.length() == 0) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("I am Groot!"));
     } else {
@@ -23,7 +23,7 @@ public class GuardianController {
   }
 
   @GetMapping ("/yondu")
-  public ResponseEntity addResponse(@RequestParam (required = false) Double distance, @RequestParam (required = false) Double time) {
+  public ResponseEntity addYonduResponse(@RequestParam (required = false) Double distance, @RequestParam (required = false) Double time) {
     if (distance == null || time == null || time == 0) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Bad request! Provide valid distance & time!"));
     } else {
