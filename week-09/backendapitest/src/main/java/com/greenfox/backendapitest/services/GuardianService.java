@@ -5,16 +5,16 @@ import com.greenfox.backendapitest.models.ReceivedCargo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Setter
 @Getter
-@Service
 @NoArgsConstructor
+@Service
 public class GuardianService {
-private Cargo cargo = new Cargo();
-private ReceivedCargo receivedCargo = new ReceivedCargo();
+  private Cargo cargo = new Cargo();
+  private ReceivedCargo receivedCargo = new ReceivedCargo();
 
   public void setDifferentCalAmounts (String caliber, int amount) {
     if (caliber.equals(".25")) {
@@ -29,7 +29,7 @@ private ReceivedCargo receivedCargo = new ReceivedCargo();
   public void setCargoShipStatus (){
     int overallAmount = cargo.getCaliber25()+cargo.getCaliber30()+cargo.getCaliber50();
     double loadingPercentage = overallAmount * 100 / 12500;
-    String redundantStatus = loadingPercentage <= 0 ? "emptier" : loadingPercentage < 100 ? String.valueOf(loadingPercentage) + "%": loadingPercentage ==
+    String redundantStatus = loadingPercentage <= 0 ? "empty" : loadingPercentage < 100 ? String.valueOf(loadingPercentage) + "%": loadingPercentage ==
         100 ? "full": "overloaded";
     cargo.setShipStatus(redundantStatus);
     boolean redundantReady = cargo.getShipStatus().equals("full");
@@ -44,3 +44,4 @@ private ReceivedCargo receivedCargo = new ReceivedCargo();
     receivedCargo.setReady(cargo.isReady());
   }
 }
+

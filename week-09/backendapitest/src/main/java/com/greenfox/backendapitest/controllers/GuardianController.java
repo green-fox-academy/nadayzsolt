@@ -54,7 +54,7 @@ public class GuardianController {
                                                         Integer amount) {
     Cargo cargo = guardianService.getCargo();
     ReceivedCargo receivedCargo = guardianService.getReceivedCargo();
-    if (!caliber.equals(".30") && !caliber.equals(".25") && !caliber.equals(".50") || caliber == null || amount == null || amount <= 0) {
+    if (!caliber.equals(".30") && !caliber.equals(".25") && !caliber.equals(".50") || caliber == null || amount == null || amount < 0) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body(new ErrorMessage("Bad request! Provide valid caliber & amount!"));
     } else {
