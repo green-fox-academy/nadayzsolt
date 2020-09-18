@@ -22,13 +22,14 @@ public class GuardianControllerTest {
 
   @Test
   public void givenValidParam_whenCallGroot_thanReturnOk() throws Exception {
-    mockMvc.perform(get("/groot?message=someothermessage")).andExpect(status().isOk()).andExpect(
-        (ResultMatcher) jsonPath("$.received").value("someothermessage")).andExpect(
-        (ResultMatcher) jsonPath("$.translated").value("I am Groot!"));
+    mockMvc.perform(get("/groot?message=someothermessage"))
+        .andExpect(status().isOk())
+        .andExpect((ResultMatcher) jsonPath("$.received").value("someothermessage"))
+        .andExpect((ResultMatcher) jsonPath("$.translated").value("I am Groot!"));
   }
 
   @Test
-  public void notGivenValidParam_whenCallGroot_thanReturnBadRequest() throws Exception {
+  public void givenInvalidParam_whenCallGroot_thanReturnBadRequest() throws Exception {
     mockMvc.perform(get("/groot")).andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.error").value("I am Groot!"));
 

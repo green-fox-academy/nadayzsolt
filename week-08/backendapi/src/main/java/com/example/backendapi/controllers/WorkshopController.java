@@ -17,15 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@org.springframework.web.bind.annotation.RestController
-public class RestController {
+@RestController
+public class WorkshopController {
   MainService mainService;
   Logger logger;
   Timestamp timestamp;
 
   @Autowired
-  public RestController(MainService mainService) {
+  public WorkshopController(MainService mainService) {
     this.mainService = mainService;
   }
 
