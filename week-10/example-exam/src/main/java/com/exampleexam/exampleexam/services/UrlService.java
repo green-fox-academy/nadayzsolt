@@ -28,7 +28,17 @@ public class UrlService {
     }
   }
 
-  public boolean checkIfUrlOld (String alias){
-   return urlRepository.findByAlias(alias).isUrlOld();
+  public boolean checkIfUrlOld(String alias) {
+    return urlRepository.findByAlias(alias).isUrlOld();
+  }
+
+  public Url checkAlias(String alias) {
+    return urlRepository.findByAlias(alias);
+  }
+
+  public void incrementHitCount (String alias) {
+    Url actualUrl = urlRepository.findByAlias(alias);
+    actualUrl.setHitCount(actualUrl.getHitCount()+1);
+    urlRepository.save(actualUrl);
   }
 }
