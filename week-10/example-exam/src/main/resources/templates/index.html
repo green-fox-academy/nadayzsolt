@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+<p th:text="${message}"></p>
+<form method="post" action="/save-link">
+    <label>URL</label><br>
+    <input type="text" name="url" th:value="${existurl}"><br>
+    <label>Alias</label><br>
+    <input type="text" name="alias" th:value="${existalias}"><br>
+    <button>Submit</button>
+</form>
+</body>
+</html>

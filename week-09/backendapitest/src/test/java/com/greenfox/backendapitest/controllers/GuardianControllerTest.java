@@ -1,19 +1,14 @@
 package com.greenfox.backendapitest.controllers;
 
-import static org.slf4j.MDC.clear;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.greenfox.backendapitest.models.Cargo;
-import org.junit.jupiter.api.BeforeEach;
+import com.greenfox.backendapitest.services.GuardianService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 
@@ -24,6 +19,7 @@ public class GuardianControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
+  private GuardianService guardianService
 
   @Test
   public void givenValidParam_whenCallGroot_thanReturnOk() throws Exception {
@@ -74,7 +70,7 @@ public class GuardianControllerTest {
         .andExpect((ResultMatcher) jsonPath("$.ready").value("false"));
   }
 // Ez már failed, hogyha a classban lévő összes tesztet egyszerre indítom,
-// de nem tudok @BeforeEach clearelni, mivel nem reporol van szo.
+// de nem tudok @BeforeEach clearelni, mivel nem reporol van szo. (a 2vel efölötti miatt)
   @Test
   public void givenValidParam_whenCallRocket_thanReturnOk() throws Exception {
     mockMvc.perform(get("/rocket/fill?caliber=.50&amount=5000"))
