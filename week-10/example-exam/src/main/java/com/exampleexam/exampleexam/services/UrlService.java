@@ -2,6 +2,7 @@ package com.exampleexam.exampleexam.services;
 
 import com.exampleexam.exampleexam.models.Url;
 import com.exampleexam.exampleexam.repositories.UrlRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,9 @@ public class UrlService {
     Url actualUrl = urlRepository.findByAlias(alias);
     actualUrl.setHitCount(actualUrl.getHitCount()+1);
     urlRepository.save(actualUrl);
+  }
+
+  public List listAllUrls (){
+    return urlRepository.findAll();
   }
 }
