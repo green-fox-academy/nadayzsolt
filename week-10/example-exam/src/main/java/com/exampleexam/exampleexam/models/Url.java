@@ -1,5 +1,7 @@
 package com.exampleexam.exampleexam.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,9 +19,12 @@ public class Url {
   @GeneratedValue (strategy = GenerationType.IDENTITY)
   @Id
   private int id;
+  @JsonProperty("url")
   private String pagelink;
   private String alias;
+  @JsonIgnore
   private int code;
+  @JsonIgnore
   private boolean urlOld;
   private int hitCount;
 

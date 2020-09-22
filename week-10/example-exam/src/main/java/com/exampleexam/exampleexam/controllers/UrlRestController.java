@@ -18,11 +18,11 @@ public class UrlRestController {
   }
 
   @GetMapping("/api/links")
-  public ResponseEntity responseListOfCargo() {
+  public ResponseEntity responseUrlList() {
     return ResponseEntity.status(HttpStatus.OK).body(urlService.listAllUrls());
   }
 // @DeleteMapping ("/api/links/{id}")
-//  public ResponseEntity responseListOfCargo() {
+//  public ResponseEntity deleteUrlByCode() {
 //    return ResponseEntity.status(HttpStatus.OK).body(urlService.listAllUrls());
 //  }
 }

@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class WorkshopController {
   MainService mainService;
-  Logger logger;
-  Timestamp timestamp;
+//  Logger logger;
+//  Timestamp timestamp;
 
   @Autowired
   public WorkshopController(MainService mainService) {
