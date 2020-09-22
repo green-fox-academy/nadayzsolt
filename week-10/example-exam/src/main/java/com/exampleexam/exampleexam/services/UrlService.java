@@ -47,5 +47,16 @@ public class UrlService {
     return urlRepository.findAll();
   }
 
+  public Url checkCode (int code){
+    return urlRepository.findByCode(code);
+  }
+
+  public Url checkId (int id){
+    return urlRepository.findById(id);
+  }
+
+  public void removeUrlByCode (int code){
+    urlRepository.deleteByCode(code);
+  }
 
 }

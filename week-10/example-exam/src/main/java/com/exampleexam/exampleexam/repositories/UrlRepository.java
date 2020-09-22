@@ -13,5 +13,9 @@ public interface UrlRepository extends CrudRepository <Url, Integer> {
 
   Url findByCode (int code);
 
+  Url findById (int id);
+
   List<Url> findAll();
+
+  void deleteByCode(int code);
 }
