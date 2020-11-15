@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table (name = "items")
 public class Item {
 
   @Id
@@ -29,6 +31,8 @@ public class Item {
   @JsonIgnoreProperties ("itemList")
   @ManyToOne
   private User user;
+
+  private boolean sold;
 
   public Item(String name, String description, String photoUrl, int startingPrice,
               int purchasePrice, User user) {

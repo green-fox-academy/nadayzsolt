@@ -5,12 +5,16 @@ import com.homework.homework.user.UserService;
 import com.homework.homework.util.JwtTokenMissingException;
 import com.homework.homework.util.JwtTokenUtil;
 import com.homework.homework.util.Response;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,6 +22,8 @@ public class ItemController {
   ItemService itemService;
   UserService userService;
   JwtTokenUtil jwtTokenUtil;
+  private Integer pageNr;
+  private HttpServletRequest request;
 
   @Autowired
   public ItemController(ItemService itemService, UserService userService,
@@ -30,7 +36,7 @@ public class ItemController {
   @PostMapping("/newitem")
   public ResponseEntity<?> newItem(HttpServletRequest request, @RequestBody ItemDto itemDto) {
     if (request.getHeader("Home-token") == null) {
-      throw new JwtTokenMissingException("bad token");
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Missing JWT token"));
     } else if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
       throw new JwtTokenMissingException("Invalid user/token");
     } else if (itemDto.getName() == null || itemDto.getName().equals("")) {
@@ -61,6 +67,21 @@ public class ItemController {
           itemDto.getStartingPrice(), itemDto.getPurchasePrice(), user);
       itemService.itemRepository.save(item);
       return ResponseEntity.ok(item);
+    }
+  }
+
+  @GetMapping(value = {"/listitembypage", "/listitembypage/{nr}"})
+  public ResponseEntity<?> listTheNth20(@PathVariable(required = false, name = "nr") Integer pageNr,
+                                        HttpServletRequest request) {
+    if (request.getHeader("Home-token") == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Missing JWT token"));
+    } else if (pageNr == null) {
+      return ResponseEntity.ok(itemService.find20ItemByPages(0));
+    } else if (pageNr < 0) {
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+          .body(new Response("Invalid page number!"));
+    } else {
+      return ResponseEntity.ok(itemService.find20ItemByPages(pageNr));
     }
   }
 }
