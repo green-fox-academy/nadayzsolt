@@ -1,4 +1,4 @@
-package com.homework.homework;
+package com.homework.homework.util;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

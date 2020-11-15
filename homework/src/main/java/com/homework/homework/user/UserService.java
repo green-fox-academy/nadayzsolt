@@ -1,5 +1,6 @@
-package com.homework.homework;
+package com.homework.homework.user;
 
+import com.homework.homework.util.JwtTokenMissingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +27,13 @@ public class UserService {
 
   public User findByUserName(String name) {
     return userRepository.findByName(name);
+  }
+
+  public User findById(Long id) {
+    try {
+      return userRepository.findById(id).orElseThrow(NullPointerException::new);
+    } catch (NullPointerException e) {
+      throw new JwtTokenMissingException("Missing token");
+    }
   }
 }

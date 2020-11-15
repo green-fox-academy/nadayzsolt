@@ -1,6 +1,6 @@
 package com.homework.homework.util;
 
-import com.homework.homework.User;
+import com.homework.homework.user.User;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;

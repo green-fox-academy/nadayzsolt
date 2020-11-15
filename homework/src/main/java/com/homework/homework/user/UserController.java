@@ -1,6 +1,8 @@
-package com.homework.homework;
+package com.homework.homework.user;
 
 import com.homework.homework.util.JwtTokenUtil;
+import com.homework.homework.util.Response;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

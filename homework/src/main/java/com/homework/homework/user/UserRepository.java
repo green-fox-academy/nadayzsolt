@@ -1,7 +1,6 @@
-package com.homework.homework;
+package com.homework.homework.user;
 
 import java.util.List;
-import javax.swing.JPasswordField;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

@@ -1,9 +1,14 @@
-package com.homework.homework;
+package com.homework.homework.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.homework.homework.item.Item;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +24,13 @@ public class User {
   @GeneratedValue (strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
+  @JsonIgnore
   private String password;
-  private double dollarAmount;
+  @JsonIgnore
+  private int dollarAmount;
+  @JsonIgnoreProperties ("user")
+  @OneToMany (mappedBy = "user")
+  List<Item> itemList;
 
   public User(String name, String password) {
     this.name = name;
