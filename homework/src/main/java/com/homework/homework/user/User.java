@@ -35,8 +35,10 @@ public class User {
   @JsonIgnoreProperties ("seller")
   @OneToMany (mappedBy = "seller")
   List<Item> itemsForSaleList;
+  @JsonIgnoreProperties ("bidder")
   @OneToMany (mappedBy = "bidder")
   List<Bid> bidList;
+  @JsonIgnoreProperties ("buyer")
   @OneToMany (mappedBy = "buyer")
   List<Item> itemsBoughtList;
 

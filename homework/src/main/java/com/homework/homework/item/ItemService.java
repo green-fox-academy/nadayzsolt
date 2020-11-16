@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,5 +39,21 @@ public class ItemService {
   public List<Item> find20ItemByPages(int pageNr) {
     PageRequest twentyPerPage = PageRequest.of(pageNr, 2);
     return itemRepository.findAllBySoldIsFalse(twentyPerPage).getContent();
+  }
+
+  public boolean itemExistsById(long itemId) {
+    return itemRepository.existsById(itemId);
+  }
+
+  public boolean itemSellable(long itemId) {
+    return itemRepository.findById(itemId).get().isSold();
+  }
+
+  public Optional<Item> findById(long itemId) {
+    return itemRepository.findById(itemId);
+  }
+
+  public void saveItemChanges(Item item) {
+    itemRepository.save(item);
   }
 }

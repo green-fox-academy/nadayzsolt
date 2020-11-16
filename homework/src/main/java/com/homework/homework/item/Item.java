@@ -36,8 +36,10 @@ public class Item {
   @JsonIgnoreProperties ("itemsForSaleList")
   @ManyToOne
   private User seller;
+  @JsonIgnoreProperties ("item")
   @OneToMany (mappedBy = "item")
   private List<Bid> bidList;
+  @JsonIgnoreProperties ("itemsBoughtList")
   @ManyToOne
   private User buyer;
 
