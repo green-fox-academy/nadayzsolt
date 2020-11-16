@@ -37,35 +37,43 @@ public class BidController {
   public ResponseEntity<?> bid(@RequestBody BidDto bidDto, HttpServletRequest request) {
     try {
       if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Invalid user/token"));
       }
     } catch (MalformedJwtException | StringIndexOutOfBoundsException | NullPointerException e) {
       return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
     }
-    User user = userService.findById(jwtTokenUtil.getIdFromRequest(request));
-    Optional<Item> itemOptional = itemService.findById(bidDto.getItemId());
-    Item item = itemOptional.orElse(null);
-    if(user.getDollarAmount() < bidDto.getAmount()){
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new Response("Not enough money!"));
-    } else if (!itemOptional.isPresent()){
+    User bidderBuyer = userService.findById(jwtTokenUtil.getIdFromRequest(request));
+    Item item = itemService.findById(bidDto.getItemId()).orElse(null);
+    if(bidderBuyer.getDollarAmount() < bidDto.getAmount()){
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new Response("Not enough money for the bid!"));
+    } else if (item == null){
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Item not found!"));
+    } else if (item.getSeller() == bidderBuyer){
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Bidder & Seller are the same!"));
     } else if (item.isSold()){
       return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new Response("Item not sellable!"));
+    } else if(bidService.highestBid(bidDto.getItemId()) == null && item.getStartingPrice() > bidDto.getAmount()){
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new Response("Bid is lower than starting price!"));
     } else if(bidService.highestBid(bidDto.getItemId()) != null && bidService.highestBid(bidDto.getItemId()) >= bidDto.getAmount()){
-      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new Response("Bid is too low!"));
+      return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(new Response("Bid is lower than actual highest bid!"));
     } else if(item.getPurchasePrice() > bidDto.getAmount()){
-      bidService.bidRepository.save(new Bid(bidDto.getAmount(), user, item));
+      bidService.bidRepository.save(new Bid(bidDto.getAmount(), bidderBuyer, item));
       return ResponseEntity.ok(item);
     } else {
-      bidService.bidRepository.save(new Bid(bidDto.getAmount(), user, item));
+
+      bidService.bidRepository.save(new Bid(bidDto.getAmount(), bidderBuyer, item));
+
       item.setSold(true);
-      item.setBuyer(user);
+      item.setBuyer(bidderBuyer);
       itemService.saveItemChanges(item);
-      user.setDollarAmount(user.getDollarAmount()-bidDto.getAmount());
-      userService.saveUser(user);
+
+      bidderBuyer.setDollarAmount(bidderBuyer.getDollarAmount()-bidDto.getAmount());
+      userService.saveUser(bidderBuyer);
+
       User seller = item.getSeller();
       seller.setDollarAmount(seller.getDollarAmount()+bidDto.getAmount());
       userService.saveUser(seller);
+
       return ResponseEntity.ok(item);
     }
   }

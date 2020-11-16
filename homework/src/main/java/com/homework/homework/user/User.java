@@ -32,13 +32,13 @@ public class User {
   private String password;
   @JsonIgnore
   private int dollarAmount;
-  @JsonIgnoreProperties ("seller")
+  @JsonIgnore
   @OneToMany (mappedBy = "seller")
   List<Item> itemsForSaleList;
-  @JsonIgnoreProperties ("bidder")
+  @JsonIgnore
   @OneToMany (mappedBy = "bidder")
   List<Bid> bidList;
-  @JsonIgnoreProperties ("buyer")
+  @JsonIgnore
   @OneToMany (mappedBy = "buyer")
   List<Item> itemsBoughtList;
 

@@ -1,5 +1,6 @@
 package com.homework.homework.item;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.homework.homework.bid.Bid;
 import com.homework.homework.user.User;
@@ -31,6 +32,7 @@ public class Item {
   private String description;
   private String photoUrl;
   private int startingPrice;
+  @JsonIgnore
   private int purchasePrice;
 
   @JsonIgnoreProperties ("itemsForSaleList")
