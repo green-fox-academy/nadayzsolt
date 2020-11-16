@@ -1,13 +1,17 @@
 package com.homework.homework.item;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.homework.homework.bid.Bid;
 import com.homework.homework.user.User;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,19 +32,24 @@ public class Item {
   private String photoUrl;
   private int startingPrice;
   private int purchasePrice;
-  @JsonIgnoreProperties ("itemList")
+
+  @JsonIgnoreProperties ("itemsForSaleList")
   @ManyToOne
-  private User user;
+  private User seller;
+  @OneToMany (mappedBy = "item")
+  private List<Bid> bidList;
+  @ManyToOne
+  private User buyer;
 
   private boolean sold;
 
   public Item(String name, String description, String photoUrl, int startingPrice,
-              int purchasePrice, User user) {
+              int purchasePrice, User seller) {
     this.name = name;
     this.description = description;
     this.photoUrl = photoUrl;
     this.startingPrice = startingPrice;
     this.purchasePrice = purchasePrice;
-    this.user = user;
+    this.seller = seller;
   }
 }

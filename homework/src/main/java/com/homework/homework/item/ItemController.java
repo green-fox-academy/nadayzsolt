@@ -5,7 +5,7 @@ import com.homework.homework.user.UserService;
 import com.homework.homework.util.JwtTokenMissingException;
 import com.homework.homework.util.JwtTokenUtil;
 import com.homework.homework.util.Response;
-import java.util.Optional;
+import io.jsonwebtoken.MalformedJwtException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -35,11 +34,15 @@ public class ItemController {
 
   @PostMapping("/newitem")
   public ResponseEntity<?> newItem(HttpServletRequest request, @RequestBody ItemDto itemDto) {
-    if (request.getHeader("Home-token") == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Missing JWT token"));
-    } else if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
-      throw new JwtTokenMissingException("Invalid user/token");
-    } else if (itemDto.getName() == null || itemDto.getName().equals("")) {
+    try {
+      if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+      }
+    } catch (MalformedJwtException | StringIndexOutOfBoundsException | NullPointerException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+    }
+
+    if (itemDto.getName() == null || itemDto.getName().equals("")) {
       return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
           .body(new Response("Missing item-name!"));
     } else if (itemDto.getDescription() == null ||
@@ -71,17 +74,40 @@ public class ItemController {
   }
 
   @GetMapping(value = {"/listitembypage", "/listitembypage/{nr}"})
-  public ResponseEntity<?> listTheNth20(@PathVariable(required = false, name = "nr") Integer pageNr,
+  public ResponseEntity<?> listTheNth20(@PathVariable(required = false, name = "nr") Integer
+                                            pageNr,
                                         HttpServletRequest request) {
-    if (request.getHeader("Home-token") == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Missing JWT token"));
-    } else if (pageNr == null) {
+    try {
+      if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+      }
+    } catch (MalformedJwtException | StringIndexOutOfBoundsException | NullPointerException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+    }
+    if (pageNr == null) {
       return ResponseEntity.ok(itemService.find20ItemByPages(0));
     } else if (pageNr < 0) {
       return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
           .body(new Response("Invalid page number!"));
     } else {
       return ResponseEntity.ok(itemService.find20ItemByPages(pageNr));
+    }
+  }
+
+  @GetMapping("item/{nr}")
+  public ResponseEntity<?> itemByNumber(@PathVariable(name = "nr") long itemNr,
+                                        HttpServletRequest request) {
+    try {
+      if (userService.findById(jwtTokenUtil.getIdFromRequest(request)) == null) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+      }
+    } catch (MalformedJwtException | StringIndexOutOfBoundsException | NullPointerException e) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new Response("Invalid user/token"));
+    }
+    if (!itemService.itemRepository.existsById(itemNr)) {
+      return ResponseEntity.ok(new Response("Item not found!"));
+    } else {
+      return ResponseEntity.ok(itemService.itemRepository.findById(itemNr));
     }
   }
 }

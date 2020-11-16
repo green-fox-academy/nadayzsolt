@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
 
   @Query(value = "SELECT * FROM items WHERE sold = 0", nativeQuery = true)
-  Page<Item> findAll(PageRequest pageRequest);
+  Page<Item> findAllBySoldIsFalse (PageRequest pageRequest);
 }

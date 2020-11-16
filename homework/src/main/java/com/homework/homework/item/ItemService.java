@@ -1,9 +1,12 @@
 package com.homework.homework.item;
 
+import com.homework.homework.util.InvalidIdException;
+import com.homework.homework.util.Response;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,9 +35,8 @@ public class ItemService {
     return itemDto.getPurchasePrice() > 0 || itemDto.getStartingPrice() > 0;
   }
 
-  public List<Item> find20ItemByPages(int pageNr){
-    PageRequest twentyPerPage = PageRequest.of(pageNr, 20);
-    List<Item> pageItemList = itemRepository.findAll(twentyPerPage).getContent();
-    return pageItemList;
+  public List<Item> find20ItemByPages(int pageNr) {
+    PageRequest twentyPerPage = PageRequest.of(pageNr, 2);
+    return itemRepository.findAllBySoldIsFalse(twentyPerPage).getContent();
   }
 }
