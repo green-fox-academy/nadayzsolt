@@ -9,7 +9,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,12 +24,15 @@ import org.springframework.stereotype.Service;
 public class ItemService {
   ItemRepository itemRepository;
   BidRepository bidRepository;
+  EntityManagerFactory entityManagerFactory;
 
   @Autowired
   public ItemService(ItemRepository itemRepository,
-                     BidRepository bidRepository) {
+                     BidRepository bidRepository,
+                     EntityManagerFactory entityManagerFactory) {
     this.itemRepository = itemRepository;
     this.bidRepository = bidRepository;
+    this.entityManagerFactory = entityManagerFactory;
   }
 
   public boolean isPhotoUrlValidated(ItemDto itemDto) {
@@ -42,15 +49,18 @@ public class ItemService {
   }
 
   public List<ItemListDAO> find20ItemByPages(int pageNr) {
-    PageRequest twentyPerPage = PageRequest.of(pageNr, 2);
-    List<ItemListDAO> listDAOS = new ArrayList<>();
-    for (int i = 0; i < itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).size(); i++) {
-      String name = itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).get(i);
-      String photoUrl = itemRepository.findAllItemPhotoUrlWhereSoldIsFalse(twentyPerPage).get(i);
-      Integer maxBid = itemRepository.findAllItemMaxBidWhereSoldIsFalse(twentyPerPage).get(i);
-      listDAOS.add(new ItemListDAO(name, photoUrl, maxBid));
-    }
-    return listDAOS;
+//    PageRequest twentyPerPage = PageRequest.of(pageNr, 2);
+//    List<ItemListDAO> listDAOS = new ArrayList<>();
+//    for (int i = 0; i < itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).size(); i++) {
+//      String name = itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).get(i);
+//      String photoUrl = itemRepository.findAllItemPhotoUrlWhereSoldIsFalse(twentyPerPage).get(i);
+//      Integer maxBid = itemRepository.findAllItemMaxBidWhereSoldIsFalse(twentyPerPage).get(i);
+//      listDAOS.add(new ItemListDAO(name, photoUrl, maxBid));
+//    }
+    EntityManager em = entityManagerFactory.createEntityManager();
+    return em.createNativeQuery(
+        "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id")
+        .getResultList();
   }
 
   public boolean itemExistsById(long itemId) {
