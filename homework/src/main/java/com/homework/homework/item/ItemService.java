@@ -57,18 +57,24 @@ public class ItemService {
 //      Integer maxBid = itemRepository.findAllItemMaxBidWhereSoldIsFalse(twentyPerPage).get(i);
 //      listDAOS.add(new ItemListDAO(name, photoUrl, maxBid));
 //    }
+//    ez lett volna a sima megoldás
     EntityManager em = entityManagerFactory.createEntityManager();
-    List<Object[]> tuples = em.createNativeQuery(
-        "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id")
-        .getResultList();
+    Query q = em.createNativeQuery(
+        "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id");
+    q.setFirstResult(pageNr * 20);
+    q.setMaxResults(20);
+    List<Object[]> tuples = q.getResultList();
 
-    List<ItemListDAO> newListDAOS = new ArrayList<>();
-
+    List<ItemListDAO> newItemListDAOlist = new ArrayList<>();
     for (Object[] tuple : tuples) {
       ItemListDAO newItemListDAO = new ItemListDAO ((String) tuple[0], (String) tuple[1], (Integer) tuple[2]);
-      newListDAOS.add(newItemListDAO);
+      newItemListDAOlist.add(newItemListDAO);
     }
-    return newListDAOS;
+    //    List<ItemListDAO> newListDAOS = em.createNamedQuery(
+//        "itemlistdao", com.homework.homework.item.ItemListDAO.class)
+//        .getResultList();
+// ez nem működik
+    return newItemListDAOlist;
   }
 
   public boolean itemExistsById(long itemId) {
