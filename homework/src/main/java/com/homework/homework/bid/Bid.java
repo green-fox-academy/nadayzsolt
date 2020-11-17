@@ -1,5 +1,6 @@
 package com.homework.homework.bid;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.homework.homework.item.Item;
 import com.homework.homework.user.User;
@@ -24,7 +25,7 @@ public class Bid {
   @JsonIgnoreProperties("bidList")
   @ManyToOne
   private User bidder;
-  @JsonIgnoreProperties("bidList")
+  @JsonIgnore
   @ManyToOne
   private Item item;
 

@@ -44,6 +44,7 @@ public class Item {
   private User buyer;
 
   private boolean sold;
+  private Integer buyingPrice;
 
   public Item(String name, String description, String photoUrl, int startingPrice,
               int purchasePrice, User seller) {

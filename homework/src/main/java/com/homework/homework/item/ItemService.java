@@ -1,5 +1,6 @@
 package com.homework.homework.item;
 
+import com.homework.homework.bid.BidRepository;
 import com.homework.homework.util.InvalidIdException;
 import com.homework.homework.util.Response;
 import java.net.MalformedURLException;
@@ -18,10 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ItemService {
   ItemRepository itemRepository;
+  BidRepository bidRepository;
 
   @Autowired
-  public ItemService(ItemRepository itemRepository) {
+  public ItemService(ItemRepository itemRepository,
+                     BidRepository bidRepository) {
     this.itemRepository = itemRepository;
+    this.bidRepository = bidRepository;
   }
 
   public boolean isPhotoUrlValidated(ItemDto itemDto) {
@@ -55,6 +59,20 @@ public class ItemService {
 
   public boolean itemSellable(long itemId) {
     return itemRepository.findById(itemId).get().isSold();
+  }
+
+  public ItemSpecificDAO getSpecificItemById(long itemId) {
+    Item item = itemRepository.findById(itemId).orElse(null);
+    if (!itemRepository.findById(itemId).isPresent()) {
+      return null;
+    } else if (!item.isSold()) {
+      return new ItemSpecificDAO(item.getName(), item.getDescription(), item.getPhotoUrl(),
+          item.getBidList(), item.getSeller().getName());
+    } else {
+      return new ItemSpecificSoldDAO(item.getName(), item.getDescription(), item.getPhotoUrl(),
+          item.getBidList(), item.getSeller().getName(),
+          bidRepository.findMaxAmountWhereItem(item.getId()));
+    }
   }
 
   public Optional<Item> findById(long itemId) {

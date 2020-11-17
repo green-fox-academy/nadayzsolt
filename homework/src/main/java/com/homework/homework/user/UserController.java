@@ -36,7 +36,8 @@ public class UserController {
     } else {
       User user = userService.findByUserName(userDTO.getName());
       return ResponseEntity.ok(new LoginOkResponse(
-          jwtTokenUtil.generateToken(userService.findByUserName(userDTO.getName())), user.getDollarAmount()));
+          jwtTokenUtil.generateToken(userService.findByUserName(userDTO.getName())),
+          user.getDollarAmount()));
     }
   }
 }

@@ -68,7 +68,9 @@ public class ItemController {
       Item item = new Item(itemDto.getName(), itemDto.getDescription(), itemDto.getPhotoUrl(),
           itemDto.getStartingPrice(), itemDto.getPurchasePrice(), user);
       itemService.itemRepository.save(item);
-      return ResponseEntity.ok(new ItemCreateDAO(item.getId(), item.getName(), item.getDescription(), item.getPhotoUrl(), item.getStartingPrice(), item.getPurchasePrice()));
+      return ResponseEntity
+          .ok(new ItemCreateDAO(item.getId(), item.getName(), item.getDescription(),
+              item.getPhotoUrl(), item.getStartingPrice(), item.getPurchasePrice()));
     }
   }
 
@@ -106,7 +108,7 @@ public class ItemController {
     if (!itemService.itemRepository.existsById(itemNr)) {
       return ResponseEntity.ok(new Response("Item not found!"));
     } else {
-      return ResponseEntity.ok(itemService.itemRepository.findById(itemNr));
+      return ResponseEntity.ok(itemService.getSpecificItemById(itemNr));
     }
   }
 }
