@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItemRepository extends PagingAndSortingRepository<Item, Long> {
-//  nem kell: query az ItemService find20ItemByPages alatt :)
+
+@Query (value = "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id", nativeQuery = true)
+List<Object[]> getDaoTuples(PageRequest pageRequest);
 }

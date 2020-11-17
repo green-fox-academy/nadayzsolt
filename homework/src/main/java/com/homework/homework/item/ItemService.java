@@ -1,23 +1,15 @@
 package com.homework.homework.item;
 
 import com.homework.homework.bid.BidRepository;
-import com.homework.homework.util.InvalidIdException;
-import com.homework.homework.util.Response;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -49,16 +41,11 @@ public class ItemService {
   }
 
   public List<ItemListDAO> find20ItemByPages(int pageNr) {
-    EntityManager em = entityManagerFactory.createEntityManager();
-    Query q = em.createNativeQuery(
-        "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id");
-    q.setFirstResult(pageNr * 20);
-    q.setMaxResults(20);
-    List<Object[]> tuples = q.getResultList();
-
+    PageRequest findBy20 = PageRequest.of(pageNr, 20);
     List<ItemListDAO> newItemListDAOlist = new ArrayList<>();
-    for (Object[] tuple : tuples) {
-      ItemListDAO newItemListDAO = new ItemListDAO ((String) tuple[0], (String) tuple[1], (Integer) tuple[2]);
+    for (Object[] tuple : itemRepository.getDaoTuples(findBy20)) {
+      ItemListDAO newItemListDAO =
+          new ItemListDAO((String) tuple[0], (String) tuple[1], (Integer) tuple[2]);
       newItemListDAOlist.add(newItemListDAO);
     }
     return newItemListDAOlist;
