@@ -58,9 +58,17 @@ public class ItemService {
 //      listDAOS.add(new ItemListDAO(name, photoUrl, maxBid));
 //    }
     EntityManager em = entityManagerFactory.createEntityManager();
-    return em.createNativeQuery(
+    List<Object[]> tuples = em.createNativeQuery(
         "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id")
         .getResultList();
+
+    List<ItemListDAO> newListDAOS = new ArrayList<>();
+
+    for (Object[] tuple : tuples) {
+      ItemListDAO newItemListDAO = new ItemListDAO ((String) tuple[0], (String) tuple[1], (Integer) tuple[2]);
+      newListDAOS.add(newItemListDAO);
+    }
+    return newListDAOS;
   }
 
   public boolean itemExistsById(long itemId) {
