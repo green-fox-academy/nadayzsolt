@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User, Long> {
   List<User> findAll();
 
-  @Query (value = "SELECT name FROM users", nativeQuery = true)
+  @Query(value = "SELECT name FROM users", nativeQuery = true)
   List<String> findAllUserName();
 
-  @Query (value = "SELECT * FROM users WHERE name =:username", nativeQuery = true)
+  @Query(value = "SELECT * FROM users WHERE name =:username", nativeQuery = true)
   User findByName(String username);
 }

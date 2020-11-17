@@ -2,7 +2,6 @@ package com.homework.homework.item;
 
 import com.homework.homework.user.User;
 import com.homework.homework.user.UserService;
-import com.homework.homework.util.JwtTokenMissingException;
 import com.homework.homework.util.JwtTokenUtil;
 import com.homework.homework.util.Response;
 import io.jsonwebtoken.MalformedJwtException;
@@ -69,7 +68,7 @@ public class ItemController {
       Item item = new Item(itemDto.getName(), itemDto.getDescription(), itemDto.getPhotoUrl(),
           itemDto.getStartingPrice(), itemDto.getPurchasePrice(), user);
       itemService.itemRepository.save(item);
-      return ResponseEntity.ok(item);
+      return ResponseEntity.ok(new ItemCreateDAO(item.getId(), item.getName(), item.getDescription(), item.getPhotoUrl(), item.getStartingPrice(), item.getPurchasePrice()));
     }
   }
 

@@ -18,13 +18,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "bids")
 public class Bid {
   @Id
-  @GeneratedValue (strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private int amount;
-  @JsonIgnoreProperties ("bidList")
+  @JsonIgnoreProperties("bidList")
   @ManyToOne
   private User bidder;
-  @JsonIgnoreProperties ("bidList")
+  @JsonIgnoreProperties("bidList")
   @ManyToOne
   private Item item;
 

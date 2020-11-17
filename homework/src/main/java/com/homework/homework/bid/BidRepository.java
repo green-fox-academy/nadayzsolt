@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BidRepository extends CrudRepository<Bid, Long> {
   List<Bid> findAllByBidder_Id(long id);
+
   List<Bid> findAllByItem_Id(long id);
 
-  @Query (value = "SELECT MAX(amount) FROM bids WHERE item_id =:id", nativeQuery = true)
+  @Query(value = "SELECT MAX(amount) FROM bids WHERE item_id =:id", nativeQuery = true)
   Integer findMaxAmountWhereItem(long id);
 }

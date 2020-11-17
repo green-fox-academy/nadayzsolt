@@ -1,6 +1,7 @@
 package com.homework.homework.user;
 
 import com.homework.homework.util.JwtTokenUtil;
+import com.homework.homework.util.LoginOkResponse;
 import com.homework.homework.util.Response;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,9 @@ public class UserController {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
           body(new Response("Invalid password!"));
     } else {
-      return ResponseEntity.ok(new Response(jwtTokenUtil.generateToken(userService.findByUserName(userDTO.getName()))));
+      User user = userService.findByUserName(userDTO.getName());
+      return ResponseEntity.ok(new LoginOkResponse(
+          jwtTokenUtil.generateToken(userService.findByUserName(userDTO.getName())), user.getDollarAmount()));
     }
   }
 }
