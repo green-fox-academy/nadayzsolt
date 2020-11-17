@@ -49,15 +49,6 @@ public class ItemService {
   }
 
   public List<ItemListDAO> find20ItemByPages(int pageNr) {
-//    PageRequest twentyPerPage = PageRequest.of(pageNr, 2);
-//    List<ItemListDAO> listDAOS = new ArrayList<>();
-//    for (int i = 0; i < itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).size(); i++) {
-//      String name = itemRepository.findAllItemNameWhereSoldIsFalse(twentyPerPage).get(i);
-//      String photoUrl = itemRepository.findAllItemPhotoUrlWhereSoldIsFalse(twentyPerPage).get(i);
-//      Integer maxBid = itemRepository.findAllItemMaxBidWhereSoldIsFalse(twentyPerPage).get(i);
-//      listDAOS.add(new ItemListDAO(name, photoUrl, maxBid));
-//    }
-//    ez lett volna a sima megoldás
     EntityManager em = entityManagerFactory.createEntityManager();
     Query q = em.createNativeQuery(
         "SELECT name, photo_url, MAX(bids.amount) FROM items LEFT JOIN bids ON items.id = bids.item_id WHERE sold = 0 GROUP BY items.id");
@@ -70,10 +61,6 @@ public class ItemService {
       ItemListDAO newItemListDAO = new ItemListDAO ((String) tuple[0], (String) tuple[1], (Integer) tuple[2]);
       newItemListDAOlist.add(newItemListDAO);
     }
-    //    List<ItemListDAO> newListDAOS = em.createNamedQuery(
-//        "itemlistdao", com.homework.homework.item.ItemListDAO.class)
-//        .getResultList();
-// ez nem működik
     return newItemListDAOlist;
   }
 
